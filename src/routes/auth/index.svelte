@@ -46,7 +46,6 @@
 <svelte:head>
   <title>Authentication</title>
 </svelte:head>
-<div class="bg-green-400 w-100 h-screen">
 <div class="container max-w-full mx-auto md:py-24">
   <div class="max-w-sm mx-auto p-6 rounded bg-pink-200">
       <div class="flex justify-center items-center">
@@ -76,4 +75,3 @@
       <div class="cursor-pointer text-green-700 hover:underline py-2" on:click={changeInputs}>{isLogginIn ? 'Not a member? Signup' : 'Already have an account? Login'}</div>
     </div>
   </div>
-</div>
