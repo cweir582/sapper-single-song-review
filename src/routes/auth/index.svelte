@@ -51,7 +51,7 @@
   }
 
   async function register() {
-    return await fetch("http://127.0.0.1:1337/auth/local/register", {
+    return await fetch("https://single-song-review.herokuapp.com/auth/local/register", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -62,7 +62,7 @@
 
     async function login() {
     form.identifier = form.email;
-    return await fetch("http://localhost:1337/auth/local", {
+    return await fetch("https://single-song-review.herokuapp.com/auth/local", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

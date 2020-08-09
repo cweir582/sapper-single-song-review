@@ -71,7 +71,7 @@
   async function handleSubmit() {
 
     try {
-          const res = await fetch('http://localhost:1337/reviews', {
+          const res = await fetch('https://single-song-review.herokuapp.com/reviews', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${userData.jwt}`,
