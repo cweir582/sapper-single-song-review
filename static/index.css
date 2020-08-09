@@ -581,9 +581,9 @@ video {
   width: 100%;
 }
 
-@media (min-width: 540px) {
+@media (min-width: 480px) {
   .container {
-    max-width: 540px;
+    max-width: 480px;
   }
 }
 
@@ -7560,7 +7560,7 @@ video {
 }
 
 .max-w-screen-xs {
-  max-width: 540px;
+  max-width: 480px;
 }
 
 .max-w-screen-sm {
@@ -14452,14 +14452,14 @@ video {
   box-sizing: border-box;
 }
 
-@media (min-width: 540px) {
+@media (min-width: 480px) {
   .xs\:container {
     width: 100%;
   }
 
-  @media (min-width: 540px) {
+  @media (min-width: 480px) {
     .xs\:container {
-      max-width: 540px;
+      max-width: 480px;
     }
   }
 
@@ -21436,7 +21436,7 @@ video {
   }
 
   .xs\:max-w-screen-xs {
-    max-width: 540px;
+    max-width: 480px;
   }
 
   .xs\:max-w-screen-sm {
@@ -28284,9 +28284,9 @@ video {
     width: 100%;
   }
 
-  @media (min-width: 540px) {
+  @media (min-width: 480px) {
     .sm\:container {
-      max-width: 540px;
+      max-width: 480px;
     }
   }
 
@@ -35263,7 +35263,7 @@ video {
   }
 
   .sm\:max-w-screen-xs {
-    max-width: 540px;
+    max-width: 480px;
   }
 
   .sm\:max-w-screen-sm {
@@ -42111,9 +42111,9 @@ video {
     width: 100%;
   }
 
-  @media (min-width: 540px) {
+  @media (min-width: 480px) {
     .md\:container {
-      max-width: 540px;
+      max-width: 480px;
     }
   }
 
@@ -49090,7 +49090,7 @@ video {
   }
 
   .md\:max-w-screen-xs {
-    max-width: 540px;
+    max-width: 480px;
   }
 
   .md\:max-w-screen-sm {
@@ -55938,9 +55938,9 @@ video {
     width: 100%;
   }
 
-  @media (min-width: 540px) {
+  @media (min-width: 480px) {
     .lg\:container {
-      max-width: 540px;
+      max-width: 480px;
     }
   }
 
@@ -62917,7 +62917,7 @@ video {
   }
 
   .lg\:max-w-screen-xs {
-    max-width: 540px;
+    max-width: 480px;
   }
 
   .lg\:max-w-screen-sm {
@@ -69765,9 +69765,9 @@ video {
     width: 100%;
   }
 
-  @media (min-width: 540px) {
+  @media (min-width: 480px) {
     .xl\:container {
-      max-width: 540px;
+      max-width: 480px;
     }
   }
 
@@ -76744,7 +76744,7 @@ video {
   }
 
   .xl\:max-w-screen-xs {
-    max-width: 540px;
+    max-width: 480px;
   }
 
   .xl\:max-w-screen-sm {

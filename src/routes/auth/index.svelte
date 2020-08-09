@@ -46,8 +46,8 @@
 <svelte:head>
   <title>Authentication</title>
 </svelte:head>
-<div class="container max-w-full mx-auto md:py-24">
-  <div class="max-w-sm mx-auto p-6 rounded bg-pink-200">
+<div class="container max-w-full md:mx-auto py-12 md:py-24">
+  <div class="max-w-lg xs:max-w-sm mx-4 xs:mx-auto p-6 rounded bg-pink-200">
       <div class="flex justify-center items-center">
         <span class="">
           <img class="mx-auto w-20" src="./logo.png" alt="">
@@ -66,7 +66,7 @@
               class="text-md block px-3 py-3 rounded-lg w-full bg-white border-2
               border-gray-300 placeholder-gray-600 shadow-md
               focus:placeholder-gray-500 focus:bg-white focus:border-green-400
-              focus:outline-none" />
+              focus:outline-none" autocomplete="on"/>
           </div>
         {/each}
         <input type="submit" class="bg-green-400 hover:bg-green-500 cursor-pointer rounded shadow-md p-3 mt-2 " value="{isLogginIn ? 'Login' : 'Signup'}">
