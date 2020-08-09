@@ -1,35 +1,56 @@
 <script>
   import { onMount } from 'svelte';
+  import { goto } from '@sapper/app';
 
   const inputArr = [
     {
       label: "Introduction",
-      desc: "An introduction, a bit about the song, encourage readers to give it a listen"
+      desc: "An introduction, a bit about the song, encourage readers to give it a listen",
+      bind: 'introduction',
     },
     {
       label: "What I Like",
-      desc: "What are your highlights? anything stick out that’s really good? what’s your favourite part?"
+      desc: "What are your highlights? anything stick out that’s really good? what’s your favourite part?",
+      bind: 'like',
     },
     {
       label: "What I don't Like",
-      desc: "Any criticisms? anything you think they could improve? anything that’s just not up to scratch?"
+      desc: "Any criticisms? anything you think they could improve? anything that’s just not up to scratch?",
+      bind: 'dontLike',
     },
     {
       label: "My Drunken Opinion",
-      desc: "Please note this section is optional and you do not have to drink for it, a single sentance describing the song ina funny way, spelling mistakes encouraged"
+      desc: "Please note this section is optional and you do not have to drink for it, a single sentance describing the song ina funny way, spelling mistakes encouraged",
+      bind: 'opinion',
     },
     {
       label: "For Fans of",
-      desc: "What artist does this song sound like? please past a song links below your paragraph"
+      desc: "What artist does this song sound like? please past a song links below your paragraph",
+      bind: 'forfansof'
     },
     {
       label: "Should You Listen to More",
-      desc: "Should the reader listen to more of this artist? why? why not? any song recommendations by this artist you can give? if you found a good album or ep please paste a link below"
+      desc: "Should the reader listen to more of this artist? why? why not? any song recommendations by this artist you can give? if you found a good album or ep please paste a link below",
+      bind: 'shouldtheylistenmore'
     },
   ]
 
-  onMount(() => {
-    
+
+  const form = {
+    introduction: '',
+    like: '',
+    dontLike: '',
+    opinion: '',
+    forfansof: '',
+    shouldtheylistenmore: ''
+  }
+  let userData;
+
+  onMount(async () => {
+    userData = JSON.parse(localStorage.getItem('user'));
+    if(!(userData && userData.jwt)) {
+      await goto('/auth');
+    }
   })
 
   function handleSelect() {
@@ -40,8 +61,32 @@
     document.execCommand("copy");
 
     const btn = el.id !== LINK_INPUT ? el : el.nextElementSibling;
-
     btn.innerText = 'copied!'
+  }
+
+  function handleInput() {
+    form[this.dataset.forminput] = this.value;
+  }
+
+  async function handleSubmit() {
+
+    try {
+          const res = await fetch('http://localhost:1337/reviews', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${userData.jwt}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form)
+    });
+
+    const data = await res.json();
+    console.log(data);
+    } catch (error) {
+      console.log(error)
+    }
+
+
   }
 
 </script>
@@ -67,7 +112,7 @@
       <div class="text-left flex flex-col justify-around w-full sm:w-2/3 px-4 py-4 bg-white rounded-lg sm:rounded-l-none leading-loose">
           <div class="py-1 flex flex-wrap">
             <p class="w-1/2">song name</p>
-            <a href="https://dummyimage.com/900x800/000/fff" class="underline w-1/2 text-green-600">Streaming Link</a>
+            <a href="https://dummyimage.com/900x800/000/fff" target="_blank" class="underline w-1/2 text-green-600">Streaming Link</a>
             <p class="">artist name</p>
           </div>
           <div class="flex justify-start w-full">
@@ -77,7 +122,7 @@
       </div>
     </div>
       </div>
-      <form class="mt-8">
+      <form class="mt-8" on:submit|preventDefault={handleSubmit}>
         <div class="mx-auto max-w-lg">
         <!-- Inputs -->
         {#each inputArr as input}
@@ -88,7 +133,7 @@
               class="text-md block px-3 py-3 rounded-lg w-full bg-white border-2
               border-gray-300 placeholder-gray-600 shadow-md
               focus:placeholder-gray-500 focus:bg-white focus:border-green-400
-              focus:outline-none resize-y h-40" placeholder="You text here"></textarea>
+              focus:outline-none resize-y h-40" placeholder="You text here" data-forminput={input.bind} on:input={handleInput}></textarea>
           </div>
         {/each}
         <div class="pt-10 pb-5 text-center">

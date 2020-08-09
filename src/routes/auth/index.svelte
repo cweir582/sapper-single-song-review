@@ -1,31 +1,39 @@
 <script>
+  import { goto } from '@sapper/app';
+
   let registerInputs = [
     {
       label: 'Username',
-      type: 'text'
+      type: 'text',
+      bind: 'username'
     },
     {
       label: 'Email',
-      type: 'email'
+      type: 'email',
+      bind: 'email'
     },
     {
       label: 'Password',
-      type: 'password'
+      type: 'password',
+      bind: 'password'
     },
     {
       label: 'Confirm Password',
-      type: 'password'
+      type: 'password',
+      bind: 'confirmpassword'
     },
   ];
 
   let loginInputs = [
     {
       label: 'Email',
-      type: 'email'
+      type: 'email',
+      bind: 'email'
     },
     {
       label: 'Password',
-      type: 'password'
+      type: 'password',
+      bind: 'password'
     }
   ]
 
@@ -36,8 +44,54 @@
     inputArr = isLogginIn ? loginInputs : registerInputs
   }
 
-  function handleSubmit() {
-    console.log("Here");
+  const form = {
+    username: '',
+    password: '',
+    email: '',
+  }
+
+  async function register() {
+    return await fetch("http://127.0.0.1:1337/auth/local/register", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form)
+    });
+  }
+
+    async function login() {
+    form.identifier = form.email;
+    return await fetch("http://localhost:1337/auth/local", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form)
+    });
+  }
+
+  async function handleSubmit() {
+    try {
+    const res = isLogginIn ? await login() : await register();
+      const data = await res.json();
+
+      if(isLogginIn) {
+        localStorage.setItem('user', JSON.stringify(data));
+        await goto('/review');
+      }else {
+        if(res.status === 400) {
+          console.log("Wait for an admin to approve")
+        }
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function handleInput() {
+    form[this.dataset.forminput] = this.value;
   }
 
 </script>
@@ -66,7 +120,7 @@
               class="text-md block px-3 py-3 rounded-lg w-full bg-white border-2
               border-gray-300 placeholder-gray-600 shadow-md
               focus:placeholder-gray-500 focus:bg-white focus:border-green-400
-              focus:outline-none" autocomplete="on"/>
+              focus:outline-none" autocomplete="on" data-forminput={input.bind} on:input={handleInput}/>
           </div>
         {/each}
         <input type="submit" class="bg-green-400 hover:bg-green-500 cursor-pointer rounded shadow-md p-3 mt-2 " value="{isLogginIn ? 'Login' : 'Signup'}">
