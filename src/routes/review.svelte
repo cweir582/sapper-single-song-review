@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from 'svelte';
+
   const inputArr = [
     {
       label: "Introduction",
@@ -25,21 +27,58 @@
       desc: "Should the reader listen to more of this artist? why? why not? any song recommendations by this artist you can give? if you found a good album or ep please paste a link below"
     },
   ]
+
+  onMount(() => {
+    
+  })
+
+  function handleSelect() {
+    const LINK_INPUT = "streaming-link";
+    const el = this.id === LINK_INPUT ? this : this.previousElementSibling;
+    
+    el.select();
+    document.execCommand("copy");
+
+    const btn = el.id !== LINK_INPUT ? el : el.nextElementSibling;
+
+    btn.innerText = 'copied!'
+  }
+
 </script>
 
 <svelte:head>
   <title>Review Portal</title>
 </svelte:head>
 
-<div class="container md:w-6/12 mx-auto my-12 bg-pink-200 rounded py-12">
+<div class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12  xl:w-6/12 md:mx-auto my-12 bg-pink-200 rounded py-12 lowercase">
       <div class="flex justify-center items-center">
         <span class="mr-6">
-          <img class="mx-auto w-32" src="./logo.png" alt="">
+          <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="">
         </span>
-        <span class="font-semibold text-5xl">Writers portal</span>
+        <span class="font-semibold text-2xl sm:text-4xl md:text-5xl">Writers portal</span>
+      </div>
+      <div class="text-center flex flex-col my-4">
+      <div class="">
+        <button id="copy-btn" class="bg-green-400 hover:bg-green-500 text-2xl cursor-pointer rounded shadow-md p-3 px-7">pick a song</button>
+      </div>
+
+    <div class="flex mx-auto w-full max-w-lg shadow-md my-8">
+      <img class="h-full sm:w-1/3 object-fill rounded-lg rounded-r-none pb-5/6 hidden sm:block" src="https://dummyimage.com/900x800/000/fff" alt="bag">
+      <div class="text-left flex flex-col justify-around w-full sm:w-2/3 px-4 py-4 bg-white rounded-lg sm:rounded-l-none leading-loose">
+          <div class="py-1 flex flex-wrap">
+            <p class="w-1/2">song name</p>
+            <a href="https://dummyimage.com/900x800/000/fff" class="underline w-1/2 text-green-600">Streaming Link</a>
+            <p class="">artist name</p>
+          </div>
+          <div class="flex justify-start w-full">
+            <input id="streaming-link" type="text" class="bg-gray-200 w-10/12 p-2 rounded-md rounded-r-none border cursor-pointer" on:click={handleSelect} value="https://dummyimage.com/900x800/000/fff">
+            <button class="bg-green-400 text-black text-sm px-2 py-2 rounded-md rounded-l-none flex items-center" on:click={handleSelect}>copy <img class="w-6" src="./copy.svg" alt=""></button>
+          </div>
+      </div>
+    </div>
       </div>
       <form class="mt-8">
-        <div class="mx-auto max-w-lg ">
+        <div class="mx-auto max-w-lg">
         <!-- Inputs -->
         {#each inputArr as input}
           <div class="pt-8">
@@ -53,7 +92,7 @@
           </div>
         {/each}
         <div class="pt-10 pb-5 text-center">
-        <input type="submit" class="bg-green-400 hover:bg-green-500 text-2xl cursor-pointer rounded shadow-md p-3 px-7 " value="Submit Review">
+        <input type="submit" class="bg-green-400 hover:bg-green-500 text-2xl cursor-pointer rounded shadow-md p-3 px-7" value="Submit Review">
         </div>
         </div>
       </form>

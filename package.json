@@ -15,6 +15,7 @@
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
+    "clipboard": "^2.0.6",
     "compression": "^1.7.1",
     "polka": "next",
     "sirv": "^1.0.0"
