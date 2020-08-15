@@ -1,6 +1,6 @@
 <div
   class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12
-  bg-pink-200 rounded py-12 lowercase">
+  bg-pink-200 rounded py-12 lowercase shadow-md">
   <div class="flex justify-center items-center">
     <span class="mr-6">
       <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="" />
