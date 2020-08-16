@@ -1,0 +1,85 @@
+<script>
+  import { onMount } from "svelte";
+  let products = [];
+
+  const getProduts = async () => {
+    return [
+      {
+        image: "./logo.png",
+        title: "premium music review newsletter",
+        slug: 'premium-music-review-newsletter',
+        price: "£3"
+      },
+      {
+        image: "./logo.png",
+        title: "stickers",
+        slug: "stickers",
+        price: "£3"
+      },
+      {
+        image: "./logo.png",
+        title: "10% off the hmv store",
+        slug: "10-off-the-hmv-store",
+        price: "£3"
+      },
+      {
+        image: "./logo.png",
+        title: "coffee mug",
+        slug: "coffee-mug",
+        price: "£3"
+      }
+    ];
+  };
+
+  onMount(async () => {
+    products = await getProduts();
+  });
+</script>
+
+<div
+  class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12
+  bg-pink-200 rounded py-12 lowercase shadow-md">
+  <div class="flex justify-start items-center mx-auto max-w-lg">
+    <span class="mr-6">
+      <img class="mx-auto w-20" src="./logo.png" alt="" />
+    </span>
+    <span class="font-bold text-2xl sm:text-4xl md:text-5xl">Shop</span>
+  </div>
+  <div class="mt-4 max-w-lg mx-auto">
+    <input
+      class="p-4 text-xl shadow-md rounded-md bg-white w-full"
+      placeholder="search"
+      type="text" />
+  </div>
+
+  <div class="mt-4 max-w-lg mx-auto">
+    <h1 class="font-bold text-3xl">get merch look cool</h1>
+    <div class="font-semibold text-2xl">
+      <span>Cart (X)</span>
+      <span class="">Checkout</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 md:mx-8 mx-auto mt-8 max-w-lg md:max-w-none row-auto">
+    {#if products.length > 0}
+      {#each products as product}
+        <div class="flex flex-col">
+          <div class="shadow-md bg-white rounded-md text-center p-2 flex-auto">
+            <div class="w-1/2 mx-auto">
+              <img src={product.image} class="" alt="" />
+            </div>
+            <div class="text-lg font-semibold">
+              <a class="no-underline hover:underline" href="/shop/{product.slug}">
+                {product.title}
+              </a>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-center">£3</div>
+        </div>
+      {/each}
+    {:else}
+      <p>No Prodcuts</p>
+    {/if}
+  </div>
+
+</div>
