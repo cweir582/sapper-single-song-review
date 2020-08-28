@@ -1,3 +1,30 @@
+<script>
+  import { goto, stores } from "@sapper/app";
+    import { onMount } from "svelte";
+  const { preloading, page, session } = stores();
+
+  const { host, path, params, query } = $page;
+
+  const { slug } = params;
+
+  let artist = {
+    referral: "",
+    referred: ""
+  }
+
+  onMount(async () => {
+    const res = await fetch('http://127.0.0.1:1337/artists/referral/' + slug);
+
+    const data = await res.json();
+
+    artist = {
+      referral: host + '/' + data.referral,
+      referred:  data.referred,
+    }
+  })
+
+</script>
+
 <div
   class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12
   bg-pink-200 rounded py-12 lowercase shadow-md">
@@ -14,7 +41,7 @@
     <h1
       class="text-3xl font-semibold p-2 bg-white rounded-md shadow-md
       text-center max-w-md mx-auto">
-      You have X referrals
+      You have {artist.referred || 'X'} referrals
     </h1>
     <div class="text-3xl font-bold mt-4">
       you have a [Y]% chance of getting picked next week, share your link to
@@ -29,7 +56,7 @@
         id="streaming-link"
         type="text"
         class="bg-white shadow-md w-9/12 p-4 rounded-md border cursor-pointer"
-        value="https://dummyimage.com/900x800/000/fff" />
+        value="{artist.referral || 'loading..'}" />
       <button
         class="bg-green-400 shadow-md text-black text-sm px-4 py-4 ml-4
         rounded-md flex items-center">

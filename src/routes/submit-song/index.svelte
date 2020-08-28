@@ -5,25 +5,30 @@
   const inputArr = [
     {
       label: "artist",
+      bind: "artist_name"
     },
     {
       label: "song title",
+      bind: "song_name"
     },
     {
       label: "streaming link",
+      bind: "streaming_link"
     },
     {
       label: "contact email",
+      bind: "contact_email"
     }
   ];
 
   const form = {
-    introduction: "",
-    like: "",
-    dontLike: "",
-    opinion: "",
-    forfansof: "",
-    shouldtheylistenmore: ""
+    data: {
+      song_name: "",
+      artist_name: "",
+      streaming_link: "",
+      contact_email: "",
+    },
+    press_photo: ""
   };
   let userData;
 
@@ -33,11 +38,51 @@
     form[this.dataset.forminput] = this.value;
   }
 
-  async function handleSubmit() {}
+  async function handleSubmit() {
+
+    const request = new XMLHttpRequest();
+
+    const formData = new FormData();
+
+    const formElements = this.elements;
+
+    const data = {};
+
+    for (let i = 0; i < formElements.length; i++) {
+      const currentElement = formElements[i];
+      if (!['submit', 'file'].includes(currentElement.type)) {
+        data[currentElement.name] = currentElement.value;
+      } else if (currentElement.type === 'file') {
+        if (currentElement.files.length === 1) {
+          const file = currentElement.files[0];
+          formData.append(`files.${currentElement.name}`, file, file.name);
+        } else {
+          for (let i = 0; i < currentElement.files.length; i++) {
+            const file = currentElement.files[i];
+
+            formData.append(`files.${currentElement.name}`, file, file.name);
+          }
+        }
+      }
+    }
+
+    formData.append('data', JSON.stringify(data));
+
+    // request.open('POST', `http://127.0.0.1:1337/songs`);
+
+    // request.send(formData);
+
+    const res = await fetch('http://127.0.0.1:1337/songs', {
+      method: 'POST',
+      body: formData
+    })
+
+    console.log(await res.json());
+  }
 </script>
 
 <svelte:head>
-  <title>Review Portal</title>
+  <title>Submit Song</title>
 </svelte:head>
 
 <div
@@ -74,10 +119,17 @@
       </p>
     </div>
   </div>
-  <form class="mt-8 max-w-lg mx-auto" on:submit|preventDefault={handleSubmit}>
+  <form class="mt-8 max-w-lg mx-auto" enctype="multipart/form-data" on:submit|preventDefault={handleSubmit}>
     <div class="flex justify-between">
-          <button class="border-2 border-white p-4 w-1/2 bg-pink-300 font-semibold rounded-lg">a single song review</button>
-          <button class="border-2 border-black p-4 w-1/2 ml-4 bg-bright-red font-semibold">THE HELL REVIEW</button>
+      <button
+        class="border-2 border-white p-4 w-1/2 bg-pink-300 font-semibold
+        rounded-lg">
+        a single song review
+      </button>
+      <button
+        class="border-2 border-black p-4 w-1/2 ml-4 bg-bright-red font-semibold">
+        THE HELL REVIEW
+      </button>
     </div>
     <div class="">
       <!-- Inputs -->
@@ -89,6 +141,7 @@
             bg-opacity-0 border-2 border-white placeholder-gray-600
             focus:placeholder-gray-500 focus:bg-white focus:border-green-400
             focus:outline-none"
+            name={input.bind}
             placeholder={input.label}
             data-forminput={input.bind}
             on:input={handleInput} />
@@ -99,14 +152,13 @@
           type="file"
           class="text-md block px-3 py-3 rounded-lg w-full bg-white bg-opacity-0
           border-2 border-white placeholder-gray-600 focus:placeholder-gray-500
-          focus:bg-white focus:border-green-400 focus:outline-none"
-          />
+          focus:bg-white focus:border-green-400 focus:outline-none" name="press_photo" bind:value={form.press_photo}/>
       </div>
       <div class="pt-10 pb-5 text-center">
         <input
           type="submit"
-          class="bg-white hover:bg-gray-100 w-full text-2xl text-gray-700 cursor-pointer rounded
-          p-3 px-7"
+          class="bg-white hover:bg-gray-100 w-full text-2xl text-gray-700
+          cursor-pointer rounded p-3 px-7"
           value="Submit Review" />
       </div>
     </div>
