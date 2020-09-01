@@ -14,11 +14,10 @@
 
   onMount(async () => {
     const res = await fetch('http://127.0.0.1:1337/artists/referral/' + slug);
-
     const data = await res.json();
 
     artist = {
-      referral: host + '/' + data.referral,
+      referral: host + '?ref=' + data.referral,
       referred:  data.referred,
     }
   })
