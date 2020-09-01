@@ -22,6 +22,17 @@
     }
   })
 
+      function handleSelect() {
+    const LINK_INPUT = "referral-link";
+    const el = this.id === LINK_INPUT ? this : this.previousElementSibling;
+    
+    el.select();
+    document.execCommand("copy");
+
+    const btn = el.id !== LINK_INPUT ? el : el.nextElementSibling;
+    btn.innerText = 'copied!'
+  }
+
 </script>
 
 <div
@@ -52,13 +63,13 @@
     </div>
     <div class="flex justify-center w-full mt-4">
       <input
-        id="streaming-link"
+        id="referral-link"
         type="text"
         class="bg-white shadow-md w-9/12 p-4 rounded-md border cursor-pointer"
-        value="{artist.referral || 'loading..'}" />
+        value="{artist.referral || 'loading..'}" on:click={handleSelect}/>
       <button
         class="bg-green-400 shadow-md text-black text-sm px-4 py-4 ml-4
-        rounded-md flex items-center">
+        rounded-md flex items-center" on:click={handleSelect}>
         copy
       </button>
     </div>
