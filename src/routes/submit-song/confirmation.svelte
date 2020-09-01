@@ -5,17 +5,19 @@
 
   const { host, path, params, query } = $page;
 
-  let state = 'loading', data;
+  let state = 'none', data;
 
   $: resState = state
 
   onMount(async() => {
     if(!query['token']) return;
 
+    state = 'loading';
+
     console.log(query['token']);
 
     try {
-      const res = await fetch('http://127.0.0.1:1337/artists/confirm/' + query['token'], {
+      const res = await fetch('https://single-song-review.herokuapp.com/artists/confirm/' + query['token'], {
       method: 'GET',
     });
 
@@ -80,12 +82,12 @@
     </div>
   </div>
     {:else if resState === 'loading'}
-    <div class="text-xl font-semibold mt-4 p-10">
-      loading
-    </div>
-    {:else}
       <div class="text-xl font-semibold mt-4 p-10">
-      Something went wrong.
+        loading
+      </div>
+    {:else}
+    <div class="text-xl font-semibold mt-4 p-10">
+      Please confirm your email
     </div>
     {/if}
 

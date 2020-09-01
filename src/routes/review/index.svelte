@@ -98,7 +98,7 @@
 
   async function pickASong() {
     console.log(userData.jwt)
-    const res = await fetch("http://127.0.0.1:1337/songs/random", {
+    const res = await fetch("https://single-song-review.herokuapp.com/songs/random", {
       headers: {
         'Authorization': "Bearer " + userData.jwt
       }

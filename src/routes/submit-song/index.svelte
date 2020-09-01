@@ -72,12 +72,17 @@
 
     // request.send(formData);
 
-    const res = await fetch('http://127.0.0.1:1337/songs', {
+    const res = await fetch('https://single-song-review.herokuapp.com/songs', {
       method: 'POST',
       body: formData
     })
 
-    console.log(await res.json());
+    const song = await res.json();
+
+    if(!song.artistId.confirm) {
+      await goto('submit-song/confirmation');
+    }
+
   }
 </script>
 
