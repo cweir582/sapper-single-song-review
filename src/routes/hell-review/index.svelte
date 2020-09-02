@@ -11,7 +11,7 @@
   onMount(async () => {});
 
   async function sendConfirmationEmail(params) {
-    const res = await fetch("http://127.0.0.1:1337/subscribers/hell-review", {
+    const res = await fetch("https://single-song-review.herokuapp.com/subscribers/hell-review", {
       method: "POST",
       body: JSON.stringify(form)
     });
