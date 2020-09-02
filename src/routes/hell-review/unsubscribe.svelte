@@ -8,7 +8,7 @@
 
 <div
   class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12
-  bg-bright-red py-12 uppercase shadow-md text-white">
+  red py-12 uppercase shadow-md text-white">
   <div class="flex justify-start items-center mx-auto max-w-lg">
     <span class="mr-6">
       <img class="mx-auto w-20 sm:w-26" src="./logo.png" alt="" />

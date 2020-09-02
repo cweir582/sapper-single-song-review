@@ -15,7 +15,9 @@
 
 </script>
 <style>
-
+  :global(.red) {
+    background-color: #FF0606;
+  }
 
 </style>
 
