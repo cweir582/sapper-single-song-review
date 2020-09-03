@@ -3,36 +3,15 @@
   let products = [];
 
   const getProduts = async () => {
-    return [
-      {
-        image: "./logo.png",
-        title: "premium music review newsletter",
-        slug: 'premium-music-review-newsletter',
-        price: "£3"
-      },
-      {
-        image: "./logo.png",
-        title: "stickers",
-        slug: "stickers",
-        price: "£3"
-      },
-      {
-        image: "./logo.png",
-        title: "10% off the hmv store",
-        slug: "10-off-the-hmv-store",
-        price: "£3"
-      },
-      {
-        image: "./logo.png",
-        title: "coffee mug",
-        slug: "coffee-mug",
-        price: "£3"
-      }
-    ];
+    const res = await fetch('http://127.0.0.1:1337/products');
+
+    return res.status === 200 ? await res.json() : [];
   };
 
   onMount(async () => {
     products = await getProduts();
+
+    console.log(products);
   });
 </script>
 
@@ -66,7 +45,7 @@
         <div class="flex flex-col">
           <div class="shadow-md bg-white rounded-md text-center p-2 flex-auto">
             <div class="w-1/2 mx-auto">
-              <img src={product.image} class="" alt="" />
+              <img src="http://127.0.0.1:1337{product.image.formats.thumbnail.url}" class="" alt="" />
             </div>
             <div class="text-lg font-semibold">
               <a class="no-underline hover:underline" href="/shop/{product.slug}">
@@ -74,7 +53,7 @@
               </a>
             </div>
           </div>
-          <div class="text-3xl font-bold text-center">£3</div>
+          <div class="text-3xl font-bold text-center">${product.price}</div>
         </div>
       {/each}
     {:else}
