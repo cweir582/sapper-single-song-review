@@ -1,6 +1,7 @@
 <script>
-      import { goto, stores } from "@sapper/app";
-    import { onMount } from "svelte";
+  import { goto, stores } from "@sapper/app";
+  import { onMount, onDestroy } from "svelte";
+  import CartStore from "../../stores/cart";
   const { preloading, page, session } = stores();
 
   const { host, path, params, query } = $page;
@@ -9,14 +10,27 @@
 
   let product;
 
-  onMount(async() => {
-    const res = await fetch('http://127.0.0.1:1337/products/' + slug);
+  let cartItem = 0;
+
+  const unsubscribe = CartStore.subscribe(value => {
+    cartItem = value.length;
+  });
+
+  onDestroy(unsubscribe);
+
+  onMount(async () => {
+    const res = await fetch("http://127.0.0.1:1337/products/" + slug);
 
     const data = await res.json();
     product = data;
     //return res.status === 200 ? await res.json() : [];
-  })
+  });
 
+  function addToCart() {
+      CartStore.update(item => {
+        return [product, ...item];
+      });
+  }
 </script>
 
 <div
@@ -30,26 +44,36 @@
   </div>
 
   {#if product}
-<div class="mt-8 mx-8">
-    <div class="mt-4 mx-auto">
-      <h1 class="font-bold text-3xl">{product.title}</h1>
-      <div class="font-semibold text-2xl">
-        <span>Cart (X)</span>
-        <span class="">Checkout</span>
+    <div class="mt-8 mx-8">
+      <div class="mt-4 mx-auto">
+        <h1 class="font-bold text-3xl">{product.title}</h1>
+        <div class="font-semibold text-2xl">
+          <span>Cart ({cartItem})</span>
+          <span class="">Checkout</span>
+        </div>
+      </div>
+      <div class="mt-8 flex">
+        <div class="w-1/3 shadow-md bg-white rounded-lg py-4 mr-8">
+          <img
+            src="http://127.0.0.1:1337{product.image.formats.medium.url}"
+            class="h-56 mx-auto"
+            alt="" />
+        </div>
+        <div class="w-2/3 flex flex-col justify-between text-xl">
+          <p>{product.description}</p>
+          <div class="mt-2">
+            <span class="text-4xl font-semibold">${product.price}</span>
+            <button
+              class="bg-green-400 hover:bg-green-500 shadow-md rounded-md px-4
+              py-2 ml-4" on:click={addToCart}>
+              add to cart
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="mt-8 flex">
-      <div class="w-1/3 shadow-md bg-white rounded-lg py-4 mr-8">
-        <img src="http://127.0.0.1:1337{product.image.formats.medium.url}" class="h-56 mx-auto" alt="" />
-      </div>
-      <div class="w-2/3 flex flex-col justify-between text-xl">
-        <p>{product.description}</p>
-        <div class="mt-2"><span class="text-4xl font-semibold">${product.price}</span><button class="bg-green-400 hover:bg-green-500 shadow-md rounded-md px-4 py-2 ml-4">add to cart</button></div>
-      </div>
-    </div>
-  </div>
   {:else}
-  <div class="mt-8 mx-8">Loading...</div>
+    <div class="mt-8 mx-8">Loading...</div>
   {/if}
 
 </div>

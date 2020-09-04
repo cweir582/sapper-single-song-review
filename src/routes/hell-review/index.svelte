@@ -5,12 +5,15 @@
   let form = {
     email: ""
   };
+  let black;
 
   $: currentState = state;
+  $: turnBlack = black;
 
   onMount(async () => {});
 
   async function sendConfirmationEmail(params) {
+    state = "loading";
     const res = await fetch("https://single-song-review.herokuapp.com/subscribers/hell-review", {
       method: "POST",
       body: JSON.stringify(form)
@@ -20,12 +23,31 @@
     // console.log(data);
     if (res.status === 200) {
       state = "sent_mail";
+    }else {
+      state = "normal";
     }
+
+  }
+
+  async function turnButtonBlack() {
+    black = this.value.length > 0;
   }
 </script>
 
 <style>
+.loader {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #000; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 <div
@@ -47,6 +69,10 @@
 
       </div>
     </div>
+  {:else if currentState === 'loading'}
+    <div class="mt-4 max-w-lg mx-auto">
+      <div class="loader w-full mx-auto"></div>
+    </div>
   {:else}
     <div class="mt-4 max-w-lg mx-auto">
       <h1 class="font-bold text-3xl">
@@ -62,12 +88,12 @@
       <div class="flex mt-8">
         <input
           type="email"
-          class="p-2 rounded-md border-4 border-white flex-auto bg-transparent"
+          class="p-2 rounded-md border-4 border-white flex-auto bg-transparent outline-none focus:border-black"
           placeholder="EMAIL"
-          bind:value={form.email} />
+          bind:value={form.email} on:input={turnButtonBlack}/>
         <button
-          class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2
-          uppercase text-black"
+          class="{ turnBlack ? 'bg-black hover:bg-gray-900 text-white' : 'bg-white hover:bg-gray-200 text-black' } shadow-md rounded-md px-4 py-2
+          uppercase text-black ml-2"
           on:click={sendConfirmationEmail}>
           try it
         </button>

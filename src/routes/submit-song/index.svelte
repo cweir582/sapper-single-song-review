@@ -152,19 +152,20 @@
             on:input={handleInput} />
         </div>
       {/each}
-      <div class="pt-8">
+      <div class="pt-6">
+        <label class="p-2 text-lg normal-case" for="press_photo">Press Shot</label>
         <input
           type="file"
           class="text-md block px-3 py-3 rounded-lg w-full bg-white bg-opacity-0
           border-2 border-white placeholder-gray-600 focus:placeholder-gray-500
-          focus:bg-white focus:border-green-400 focus:outline-none" name="press_photo" bind:value={form.press_photo}/>
+          focus:bg-white focus:border-green-400 focus:outline-none mt-2" name="press_photo" bind:value={form.press_photo}/>
       </div>
       <div class="pt-10 pb-5 text-center">
         <input
           type="submit"
           class="bg-white hover:bg-gray-100 w-full text-2xl text-gray-700
           cursor-pointer rounded p-3 px-7"
-          value="Submit Review" />
+          value="submit song" />
       </div>
     </div>
   </form>
