@@ -1,7 +1,21 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
+    import CartStore from "../../stores/cart";
 
   let products = [];
+
+  let cartItem = 0;
+  let cartPrice = 0;
+
+  // const unsubscribe = CartStore.subscribe(value => {
+  //   cartItem = value.length;
+  //   cartPrice = value.reduce((acc, item) => {
+  //     return acc + item.price
+  //   }, 0)
+  // });
+
+
+  // onDestroy(unsubscribe);
 
 
   const getProduts = async () => {
@@ -13,7 +27,14 @@
   onMount(async () => {
     products = await getProduts();
 
-    console.log(products);
+    const cart = JSON.parse(localStorage.getItem('cart'));
+
+    if(!cart) return;
+    cartItem = cart.length;
+    cartPrice = cart.reduce((acc, item) => {
+      return acc + item.price
+    }, 0)
+    // console.log(products);
   });
 
 
@@ -38,8 +59,8 @@
   <div class="mt-4 max-w-lg mx-auto">
     <h1 class="font-bold text-3xl">get merch look cool</h1>
     <div class="font-semibold text-2xl">
-      <span>Cart (X)</span>
-      <span class="">Checkout</span>
+          <span>Cart ({cartItem}x){cartPrice > 0 ? " - $" + cartPrice : ''}</span>
+      <a href="/checkout" class="underline hover:no-underline">Checkout</a>
     </div>
   </div>
 

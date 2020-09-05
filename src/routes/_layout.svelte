@@ -2,12 +2,18 @@
   import Nav from "../components/Nav.svelte";
   import { goto, stores } from "@sapper/app";
   import { onMount } from "svelte";
+  import CartStore from "../stores/cart";
 
   const { preloading, page, session } = stores();
 
   const { host, path, params, query } = $page;
 
   export let segment;
+
+  onMount(() => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    CartStore.set(cart);
+  })
 
   console.log(segment);
 </script>

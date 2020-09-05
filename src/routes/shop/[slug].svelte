@@ -11,10 +11,20 @@
   let product;
 
   let cartItem = 0;
+  let cartPrice = 0;
 
   const unsubscribe = CartStore.subscribe(value => {
-    cartItem = value.length;
+    if(value && value.length) {
+      cartItem = value.length;
+      cartPrice = value.reduce((acc, item) => {
+        return acc + item.price
+      }, 0)
+  
+     localStorage.setItem('cart', JSON.stringify(value))
+    }
+
   });
+
 
   onDestroy(unsubscribe);
 
@@ -28,7 +38,8 @@
 
   function addToCart() {
       CartStore.update(item => {
-        return [product, ...item];
+        if(item) return [product, ...item];
+        return [product]
       });
   }
 </script>
@@ -48,8 +59,8 @@
       <div class="mt-4 mx-auto">
         <h1 class="font-bold text-3xl">{product.title}</h1>
         <div class="font-semibold text-2xl">
-          <span>Cart ({cartItem})</span>
-          <span class="">Checkout</span>
+          <span>Cart ({cartItem}x){cartPrice > 0 ? " - $" + cartPrice : ''}</span>
+          <a href="/checkout" class="underline hover:no-underline">Checkout</a>
         </div>
       </div>
       <div class="mt-8 flex">
