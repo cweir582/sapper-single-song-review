@@ -3,21 +3,7 @@
   let reviews = [];
 
   function stringToSlug (str) {
-    str = str.replace(/^\s+|\s+$/g, ''); // trim
-    str = str.toLowerCase();
-  
-    // remove accents, swap ñ for n, etc
-    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
-    var to   = "aaaaeeeeiiiioooouuuunc------";
-    for (var i=0, l=from.length ; i<l ; i++) {
-        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-    }
-
-    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-        .replace(/\s+/g, '-') // collapse whitespace and replace by -
-        .replace(/-+/g, '-'); // collapse dashes
-
-    return str;
+    return str.replace(/\s+/g, '-').toLowerCase();
 }
 
   const getReviews = async () => {
@@ -28,6 +14,7 @@
 
   onMount(async () => {
     reviews = await getReviews();
+    console.log(reviews)
   });
 </script>
 <div
@@ -55,7 +42,7 @@ all here: </h1>
     {#if reviews.length > 0}
       {#each reviews as review}
           <div class="shadow-md bg-white rounded-md text-center p-2 text-xl font-semibold mt-4">
-              <a class="no-underline hover:underline" href="/archive/{stringToSlug(review.introduction)}">
+              <a class="no-underline hover:underline" href="/archive/{review.id}">
                 {review.introduction}
               </a>
             </div>

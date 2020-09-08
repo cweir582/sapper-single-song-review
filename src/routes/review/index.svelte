@@ -48,6 +48,7 @@
     opinion: "",
     forfansof: "",
     shouldtheylistenmore: "",
+    reviewer: "",
     song: {}
   };
   let userData, song = null;
@@ -57,6 +58,10 @@
     userData = JSON.parse(localStorage.getItem("user"));
     if (!(userData && userData.jwt)) {
       await goto("/auth");
+    }
+
+    if(userData) {
+      form.reviewer = userData.user.username;
     }
   });
 
