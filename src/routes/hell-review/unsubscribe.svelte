@@ -27,7 +27,7 @@
     state = "loading";
     try {
       const res = await fetch(
-        "http://127.0.0.1:1337/subscribers/hell-review/unsubscribeEmail",
+        "https://single-song-review.herokuapp.com/subscribers/hell-review/unsubscribeEmail",
         {
           method: "POST",
           body: JSON.stringify(form)
@@ -53,7 +53,7 @@
   async function unsubcribeFromHR() {
     state = "loading"
     try {
-          const res = await fetch("http://127.0.0.1:1337/products/unsubscribehr", {
+          const res = await fetch("https://single-song-review.herokuapp.com/products/unsubscribehr", {
       method: "POST",
       body: JSON.stringify({ token: query["confirm"] })
     });

@@ -14,7 +14,7 @@
 
     if(query['token']) {
       const res = await fetch(
-        "http://127.0.0.1:1337/subscribers/hell-review/" + query["token"],
+        "https://single-song-review.herokuapp.com/subscribers/hell-review/" + query["token"],
         {
           method: "GET"
         }
@@ -30,7 +30,7 @@
       }
     } else if(query['confirm']) {
             const res = await fetch(
-        "http://127.0.0.1:1337/subscribers/hell-review/confirm/" + query["confirm"],
+        "https://single-song-review.herokuapp.com/subscribers/hell-review/confirm/" + query["confirm"],
         {
           method: "GET"
         }
@@ -51,7 +51,7 @@
     const stripe = await loadStripe(
       "pk_test_JMR0cpIhdGda0d2iqs5FEJpk00bvVGUNNf"
     );
-    const res = await fetch("http://127.0.0.1:1337/products/hrsubscribe", {
+    const res = await fetch("https://single-song-review.herokuapp.com/products/hrsubscribe", {
       method: "POST",
       body: JSON.stringify({ token: query["token"] })
     });

@@ -95,11 +95,11 @@
 
     formData.append('data', JSON.stringify(data));
 
-    // request.open('POST', `http://127.0.0.1:1337/songs`);
+    // request.open('POST', `https://single-song-review.herokuapp.com/songs`);
 
     // request.send(formData);
 
-    const res = await fetch('http://127.0.0.1:1337/songs', {
+    const res = await fetch('https://single-song-review.herokuapp.com/songs', {
       method: 'POST',
       body: formData
     })

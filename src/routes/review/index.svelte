@@ -84,7 +84,7 @@
   async function handleSubmit() {
     try {
       const res = await fetch(
-        "http://127.0.0.1:1337/reviews",
+        "https://single-song-review.herokuapp.com/reviews",
         {
           method: "POST",
           headers: {
@@ -150,7 +150,7 @@
       <img
         class="h-full sm:w-1/3 object-fit rounded-lg rounded-r-none pb-5/6
         hidden sm:block"
-        src="http://127.0.0.1:1337{song.press_photo.formats.thumbnail.url}"
+        src="https://single-song-review.herokuapp.com{song.press_photo.formats.thumbnail.url}"
         alt="bag" />
       <div
         class="text-left flex flex-col justify-around w-full sm:w-2/3 px-4 py-4

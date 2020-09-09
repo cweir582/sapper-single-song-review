@@ -30,9 +30,9 @@
 
   onMount(async () => {
     try {
-      mileStones = await getData("http://127.0.0.1:1337/milestones");
+      mileStones = await getData("https://single-song-review.herokuapp.com/milestones");
 
-      user = await getData("http://127.0.0.1:1337/artists/referral/" + slug);
+      user = await getData("https://single-song-review.herokuapp.com/artists/referral/" + slug);
 
       nextTarget = mileStones.filter(
         item => user.referred < item.min_referral

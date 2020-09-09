@@ -19,7 +19,7 @@
 
 
   const getProduts = async () => {
-    const res = await fetch('http://127.0.0.1:1337/products');
+    const res = await fetch('https://single-song-review.herokuapp.com/products');
 
     return res.status === 200 ? await res.json() : [];
   };

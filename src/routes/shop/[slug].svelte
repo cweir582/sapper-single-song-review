@@ -29,7 +29,7 @@
   onDestroy(unsubscribe);
 
   onMount(async () => {
-    const res = await fetch("http://127.0.0.1:1337/products/" + slug);
+    const res = await fetch("https://single-song-review.herokuapp.com/products/" + slug);
 
     const data = await res.json();
     product = data;

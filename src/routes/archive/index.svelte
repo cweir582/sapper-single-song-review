@@ -7,7 +7,7 @@
 }
 
   const getReviews = async () => {
-    const res = await fetch('http://127.0.0.1:1337/reviews/');
+    const res = await fetch('https://single-song-review.herokuapp.com/reviews/');
     let data = await res.json();
     return data;
   };

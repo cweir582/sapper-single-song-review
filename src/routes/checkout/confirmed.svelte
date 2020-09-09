@@ -9,7 +9,7 @@
 
 
   async function confirmOrder() {
-    const res = await fetch("http://127.0.0.1:1337/orders/confirm/" + query['confirm']);
+    const res = await fetch("https://single-song-review.herokuapp.com/orders/confirm/" + query['confirm']);
 
     if (res.status === 200) {
       const data = await res.json();
