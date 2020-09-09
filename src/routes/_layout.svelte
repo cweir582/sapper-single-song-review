@@ -20,14 +20,14 @@
 
 <style>
   :global(.green) {
-    background: linear-gradient(-45deg, #39df78, #d5ecde);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    background: linear-gradient(-45deg, #39df78, #f6f6f6);
+    background-size: 400% 1000%;
+    animation: gradient 8s ease infinite;
   }
 
   :global(.red-bg) {
     background: linear-gradient(-45deg, #eb8989, #000, #fff);
-    background-size: 400% 400%;
+    background-size: 400% 1000%;
     animation: gradient 10s ease infinite;
   }
 

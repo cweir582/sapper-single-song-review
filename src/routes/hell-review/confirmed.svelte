@@ -51,14 +51,15 @@
     const stripe = await loadStripe(
       "pk_test_JMR0cpIhdGda0d2iqs5FEJpk00bvVGUNNf"
     );
-    const res = await fetch("https://single-song-review.herokuapp.com/products/hrsubscribe", {
+    const res = await fetch("http://127.0.0.1:1337/products/hrsubscribe", {
       method: "POST",
       body: JSON.stringify({ token: query["token"] })
     });
 
     const session = await res.json();
 
-    return stripe.redirectToCheckout({ sessionId: session.id });
+
+   return stripe.redirectToCheckout({ sessionId: session.id });
   }
 </script>
 
