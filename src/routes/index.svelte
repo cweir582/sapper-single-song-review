@@ -15,7 +15,7 @@
   async function addToEmailList() {
     loading = true;
     const ref = query['ref'];
-    const res = await fetch('https://single-song-review.herokuapp.com/subscribers', {
+    const res = await fetch('http://127.0.0.1:1337/subscribers', {
       method: 'POST',
       body: JSON.stringify({
         email,

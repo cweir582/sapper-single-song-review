@@ -3,14 +3,14 @@
     
   onDestroy(async () => {
     try {
-      document.body.style.backgroundColor = "#68D391"
+      document.body.classList.remove('red-bg');
     } catch (error) {
       
     }
   });
 
   onMount(async () => {
-    document.body.style.backgroundColor = "#000"
+    document.body.classList.add('red-bg');
   });
 
 </script>

@@ -14,7 +14,7 @@
 
     if(query['token']) {
       const res = await fetch(
-        "https://single-song-review.herokuapp.com/subscribers/hell-review/" + query["token"],
+        "http://127.0.0.1:1337/subscribers/hell-review/" + query["token"],
         {
           method: "GET"
         }
@@ -30,7 +30,7 @@
       }
     } else if(query['confirm']) {
             const res = await fetch(
-        "https://single-song-review.herokuapp.com/subscribers/hell-review/confirm/" + query["confirm"],
+        "http://127.0.0.1:1337/subscribers/hell-review/confirm/" + query["confirm"],
         {
           method: "GET"
         }
