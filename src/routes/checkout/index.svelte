@@ -21,7 +21,7 @@
   async function proceedToStripe() {
       var stripe = Stripe('pk_test_JMR0cpIhdGda0d2iqs5FEJpk00bvVGUNNf');
 
-    const res = await fetch('http://127.0.0.1:1337/orders/', {
+    const res = await fetch('https://single-song-review.herokuapp.com/orders/', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -88,7 +88,7 @@
         <div class="flex items-center mb-4">
           <div class="w-12 bg-white rounded-sm shadow-md">
             <img
-              src="http://127.0.0.1:1337{product.image.formats.thumbnail.url}"
+              src="{product.image.formats.thumbnail.url}"
               class="p-2"
               alt="" />
           </div>
