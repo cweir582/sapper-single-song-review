@@ -66,7 +66,7 @@
       <div class="mt-8 flex">
         <div class="w-1/3 shadow-md bg-white rounded-lg py-4 mr-8">
           <img
-            src="http://127.0.0.1:1337{product.image.formats.medium.url}"
+            src="{product.image.formats.medium.url}"
             class="h-56 mx-auto"
             alt="" />
         </div>

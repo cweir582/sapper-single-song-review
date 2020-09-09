@@ -23,7 +23,6 @@
 
     if(res.status === 200) {
       data = await res.json();
-
       state = data.confirm ? 'confirmed' : 'loading'; 
     }
     } catch (error) {

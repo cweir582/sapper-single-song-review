@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { goto } from "@sapper/app";
 
   const inputArr = [
@@ -21,18 +21,42 @@
     }
   ];
 
+  let submittedto = "";
+  $: selectedCategory = submittedto;
+
   const form = {
     data: {
       song_name: "",
       artist_name: "",
       streaming_link: "",
       contact_email: "",
+      submittedto: submittedto
     },
     press_photo: ""
   };
   let userData;
 
-  onMount(async () => {});
+ $: if(selectedCategory) {
+   if(submittedto === "hellreview") {
+     document.body.classList.add('red-bg');
+   } else if(submittedto === 'songreview') {
+      document.body.classList.remove('red-bg');
+   }
+ }
+
+
+
+  onMount(async () => {
+    submittedto = "songreview"
+  });
+
+  onDestroy(async() => {
+    try {
+      document.body.classList.remove('red-bg');
+    } catch (error) {
+      
+    }
+  })
 
   function handleInput() {
     form[this.dataset.forminput] = this.value;
@@ -40,13 +64,16 @@
 
   async function handleSubmit() {
 
-    const request = new XMLHttpRequest();
+   try {
+      const request = new XMLHttpRequest();
 
     const formData = new FormData();
 
     const formElements = this.elements;
 
-    const data = {};
+    const data = {
+      submittedto: submittedto
+    };
 
     for (let i = 0; i < formElements.length; i++) {
       const currentElement = formElements[i];
@@ -72,7 +99,7 @@
 
     // request.send(formData);
 
-    const res = await fetch('https://single-song-review.herokuapp.com/songs', {
+    const res = await fetch('http://127.0.0.1:1337/songs', {
       method: 'POST',
       body: formData
     })
@@ -81,9 +108,15 @@
 
     if(!song.artistId.confirm) {
       await goto('submit-song/confirmation');
+    }else {
+      await goto('/referral/' + song.artistId.referral);
     }
-
+   } catch (error) {
+     
+   }
   }
+
+
 </script>
 
 <svelte:head>
@@ -91,8 +124,8 @@
 </svelte:head>
 
 <div
-  class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12
-  bg-pink-200 rounded py-12 lowercase shadow-md">
+  class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12 py-12
+  {selectedCategory === 'hellreview' ? 'red uppercase text-white white-shadow' : 'bg-pink-200 rounded lowercase shadow-md'}">
   <div class="flex justify-center items-center">
     <span class="mr-6">
       <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="" />
@@ -128,11 +161,11 @@
     <div class="flex justify-between">
       <button
         class="border-2 border-white p-4 w-1/2 bg-pink-300 font-semibold
-        rounded-lg">
+        rounded-lg" on:click|preventDefault={() => submittedto="songreview"}>
         a single song review
       </button>
       <button
-        class="border-2 border-black p-4 w-1/2 ml-4 bg-bright-red font-semibold">
+        class="border-2 border-black p-4 w-1/2 ml-4 red font-semibold" on:click|preventDefault={() => submittedto="hellreview"}>
         THE HELL REVIEW
       </button>
     </div>
@@ -145,7 +178,7 @@
             class="text-md block px-3 py-3 rounded-lg w-full bg-white
             bg-opacity-0 border-2 border-white placeholder-gray-600
             focus:placeholder-gray-500 focus:bg-white focus:border-green-400
-            focus:outline-none"
+            focus:outline-none text-black"
             name={input.bind}
             placeholder={input.label}
             data-forminput={input.bind}

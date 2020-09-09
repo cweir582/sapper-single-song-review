@@ -70,7 +70,7 @@
         <div class="flex flex-col">
           <div class="shadow-md bg-white rounded-md text-center p-2 flex-auto">
             <div class="w-1/2 mx-auto">
-              <img src="http://127.0.0.1:1337{product.image.formats.thumbnail.url}" class="" alt="" />
+              <img src="{product.image.formats.thumbnail.url}" class="" alt="" />
             </div>
             <div class="text-lg font-semibold">
               <a class="no-underline hover:underline" href="/shop/{product.slug}">
