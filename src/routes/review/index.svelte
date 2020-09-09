@@ -49,7 +49,8 @@
     forfansof: "",
     shouldtheylistenmore: "",
     reviewer: "",
-    song: {}
+    song: {},
+    category: "songreview"
   };
   let userData, song = null;
   $: pickedSong = song;
@@ -187,6 +188,13 @@
   <form class="mt-8" on:submit|preventDefault={handleSubmit}>
     <div class="mx-auto max-w-lg">
       <!-- Inputs -->
+      <div class="pt-8">
+        <label class="text-2xl" for="cat">writing for: </label>
+              <select name="cat" class="p-3" bind:value={form.category}>
+        <option value="songreview">song review</option>
+        <option value="hellreview">hell review</option>
+      </select>
+      </div>
       {#each inputArr as input}
         <div class="pt-8">
           <h3 class="text-3xl font-bold">{input.label}</h3>
