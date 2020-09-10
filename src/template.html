@@ -10,7 +10,21 @@
 	<link rel="stylesheet" href="index.css">
 	<link rel="manifest" href="manifest.json" crossorigin="use-credentials">
 	<link rel="icon" type="image/png" href="favicon.png">
-
+	<script src="https://www.google.com/recaptcha/api.js?render=6LcGmsoZAAAAAAKLJknO7S6FAZZ20GNhU057sXhC"></script>
+	<script>
+		  function checkRecaptcha() {
+    grecaptcha.ready(function() {
+      grecaptcha
+        .execute("6LcGmsoZAAAAAAKLJknO7S6FAZZ20GNhU057sXhC", { action: "submit" })
+        .then(async function(token) {
+          const res = await fetch('http://127.0.0.1:1337/subscribers/verify', {
+						method: 'POST',
+						body: JSON.stringify(token)
+					})
+        });
+    });
+  }
+	</script>
 	<!-- Sapper creates a <script> tag containing `src/client.js`
 	     and anything else it needs to hydrate the app and
 	     initialise the router -->
@@ -27,7 +41,7 @@
 </head>
 <body class="green">
 	<!-- The application will be rendered inside this element,
-	     because `src/client.js` references it -->
+		because `src/client.js` references it -->
 	<div id="sapper">%sapper.html%</div>
 </body>
 </html>
