@@ -47,7 +47,7 @@
           action: "submit"
         })
         .then(async function(token) {
-          const res = await fetch("http://127.0.0.1:1337/subscribers/verify", {
+          const res = await fetch("https://single-song-review.herokuapp.com/subscribers/verify", {
             method: "POST",
             body: JSON.stringify(token)
           });
