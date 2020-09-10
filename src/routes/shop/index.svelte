@@ -49,12 +49,6 @@
     </span>
     <span class="font-bold text-2xl sm:text-4xl md:text-5xl">Shop</span>
   </div>
-  <div class="mt-4 max-w-lg mx-auto">
-    <input
-      class="p-4 text-xl shadow-md rounded-md bg-white w-full"
-      placeholder="search"
-      type="text" />
-  </div>
 
   <div class="mt-4 max-w-lg mx-auto">
     <h1 class="font-bold text-3xl">get merch look cool</h1>
