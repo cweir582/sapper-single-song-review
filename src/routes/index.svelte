@@ -40,6 +40,27 @@
     green = this.value.length > 0;
   }
 
+  function checkRecaptcha() {
+    grecaptcha.ready(function() {
+      grecaptcha
+        .execute("6LcGmsoZAAAAAAKLJknO7S6FAZZ20GNhU057sXhC", {
+          action: "submit"
+        })
+        .then(async function(token) {
+          const res = await fetch("http://127.0.0.1:1337/subscribers/verify", {
+            method: "POST",
+            body: JSON.stringify(token)
+          });
+
+          const data = await res.json();
+
+          if(data.data.succees) {
+            await addToEmailList();
+          }
+        });
+    });
+  }
+
   async function signInWithFacebook() {
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase
@@ -146,7 +167,7 @@
         <button
           class="{changeToGreen ? 'bg-green-400' : 'bg-white'} hover:bg-gray-200
           shadow-md rounded-md px-4 py-2 mt-4 md:mt-0 md:ml-2"
-          on:click={checkRecaptcha} onclick="checkRecaptcha()">
+          on:click={checkRecaptcha}>
           try it
         </button>
       </div>
