@@ -71,8 +71,8 @@
         {/each}
       </div>
 
-      <div class="flex items-center mt-8">
-        <div class="w-2/3">
+      <div class="flex flex-col md:flex-row items-center mt-8">
+        <div class="w-full md:w-2/3">
           <h1
             class="text-2xl font-semibold p-2 bg-white rounded-md shadow-md
             text-center max-w-md mx-auto">
@@ -133,7 +133,7 @@
             </div>
           </form>
         </div>
-        <div class="w-full md:w-5/12 ml-4">
+        <div class="w-full md:w-5/12 mt-4 md:mt-0 md:ml-4">
           <button class="px-4 py-2 text-xl bg-green-400 shadow-md rounded-md">
             add from contacts
           </button>

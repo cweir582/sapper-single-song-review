@@ -73,18 +73,18 @@
       join the hot weekly newsletter for underground music lovers, finding the
       best new music one song at a time
     </p>
-    <div class="flex mt-8">
+    <div class="flex flex-col md:flex-row mt-8">
       <input
         type="email"
         class="p-2 rounded-md border-4 border-white flex-auto bg-transparent outline-none focus:border-green-400"
         placeholder="email" bind:value={email} on:input={turnButtonGreen}/>
-      <button class="{ changeToGreen ? 'bg-green-400' : 'bg-white' } hover:bg-gray-200 shadow-md rounded-md px-4 py-2 ml-2" on:click={addToEmailList}>
+      <button class="{ changeToGreen ? 'bg-green-400' : 'bg-white' } hover:bg-gray-200 shadow-md rounded-md px-4 py-2 mt-4 md:mt-0 md:ml-2" on:click={addToEmailList}>
         try it
       </button>
     </div>
   </div>
   <div
-    class="mt-8 max-w-lg mx-auto flex justify-between text-xl text-gray-600
+    class="mt-8 max-w-lg mx-auto flex flex-col md:flex-row justify-between text-xl text-gray-600
     font-semibold">
     <button
       href="/"
@@ -93,7 +93,7 @@
     </button>
     <button
       href="/"
-      class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2">
+      class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2 mt-4 md:mt-0">
       subscribe with google
     </button>
   </div>

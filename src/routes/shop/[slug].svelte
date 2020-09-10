@@ -63,14 +63,14 @@
           <a href="/checkout" class="underline hover:no-underline">Checkout</a>
         </div>
       </div>
-      <div class="mt-8 flex">
-        <div class="w-1/3 shadow-md bg-white rounded-lg py-4 mr-8">
+      <div class="mt-8 flex flex-col md:flex-row">
+        <div class="md:w-1/3 shadow-md bg-white rounded-lg py-4 mr-8">
           <img
             src="{product.image.formats.medium.url}"
             class="h-56 mx-auto"
             alt="" />
         </div>
-        <div class="w-2/3 flex flex-col justify-between text-xl">
+        <div class="mt-4 md:mt-0 md:w-2/3 flex flex-col justify-between text-xl">
           <p>{product.description}</p>
           <div class="mt-2">
             <span class="text-4xl font-semibold">${product.price}</span>

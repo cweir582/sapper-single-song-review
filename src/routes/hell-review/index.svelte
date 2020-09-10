@@ -85,7 +85,7 @@
         JOIN THE PREMIUM MUSIC NEWSLETTER WHERE WE TAKE UNSUSPECTING SONGS AND
         PUT THEM THROUGH THE THUNDERDOME, JUST £1.50 A MONTH:
       </p>
-      <div class="flex mt-8">
+      <div class="flex flex-col md:flex-row mt-8">
         <input
           type="email"
           class="p-2 rounded-md border-4 border-white flex-auto bg-transparent outline-none focus:border-black"
@@ -93,7 +93,7 @@
           bind:value={form.email} on:input={turnButtonBlack}/>
         <button
           class="{ turnBlack ? 'bg-black hover:bg-gray-900 text-white' : 'bg-white hover:bg-gray-200 text-black' } shadow-md rounded-md px-4 py-2
-          uppercase text-black ml-2"
+          uppercase text-black ml-0 mt-4 md:mt-0 md:ml-2"
           on:click={sendConfirmationEmail}>
           try it
         </button>
@@ -103,7 +103,7 @@
       <h1>OR</h1>
     </div>
     <div
-      class="mt-4 max-w-lg mx-auto flex justify-between text-lg text-gray-600
+      class="mt-4 max-w-lg mx-auto flex flex-col md:flex-row justify-between text-lg text-gray-600
       font-semibold uppercase">
       <button
         href="/"
@@ -113,7 +113,7 @@
       </button>
       <button
         href="/"
-        class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2
+        class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2 mt-4 md:mt-0
         uppercase">
         subscribe with google
       </button>

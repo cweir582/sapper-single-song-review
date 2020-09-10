@@ -36,7 +36,7 @@
 </script>
 
 <div
-  class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12
+  class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-/12 xl:w-6/12 md:mx-auto my-12
   bg-pink-200 rounded py-12 lowercase shadow-md">
   <div class="flex justify-center items-center max-w-lg mx-auto">
     <span class="mr-6">
@@ -47,16 +47,12 @@
     </span>
   </div>
 
-  <div class="mt-8 max-w-2xl mx-auto">
+  <div class="mt-8 max-w-2xl mx-8 lg:mx-auto">
     <h1
       class="text-3xl font-semibold p-2 bg-white rounded-md shadow-md
       text-center max-w-md mx-auto">
       You have {artist.referred || 'X'} referrals
     </h1>
-    <div class="text-3xl font-bold mt-4">
-      you have a [Y]% chance of getting picked next week, share your link to
-      make it more likely!
-    </div>
     <div class="text-2xl font-semibold mt-4">share your link</div>
     <div class="text-2xl mt-2">
       share your referral link with your fans and get rewards!
@@ -90,8 +86,8 @@
           <div class="mt-4"><input type="submit" class="px-4 py-2 w-full md:w-40 text-xl bg-green-400 shadow-md rounded-md" value="send!"></div>
         </form>
       </div>
-      <div class="w-full md:w-5/12 ml-4">
-        <button class="px-4 py-2 text-xl bg-green-400 shadow-md rounded-md">add from contacts</button>
+      <div class="w-full md:w-5/12 ml-0 mt-4 md:mt-0 md:ml-4">
+        <button class="px-4 py-2 text-xl bg-green-400 shadow-md rounded-md ">add from contacts</button>
         <div class="mt-4 text-2xl">feel free to customise your message</div>
       </div>
     </div>
