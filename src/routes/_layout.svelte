@@ -48,6 +48,10 @@
 
 <!-- <Nav {segment}/> -->
 
+<svelte:head>
+  <title>A Single Song Review</title>
+</svelte:head>
+
 <main>
   <slot />
   {#if segment !== 'hell-review'}
