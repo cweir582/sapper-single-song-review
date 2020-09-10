@@ -55,25 +55,28 @@
 
   async function sendMailToContact() {
     try {
-    mailMessage = "sending...";
-    const res = await fetch("https://single-song-review.herokuapp.com/artists/sendrefmail", {
-      method: "POST",
-      body: JSON.stringify(mail)
-    });
+      mail.message += " " + artist.referred;
+      mailMessage = "sending...";
+      const res = await fetch(
+        "https://single-song-review.herokuapp.com/artists/sendrefmail",
+        {
+          method: "POST",
+          body: JSON.stringify(mail)
+        }
+      );
 
-    if (res.status === 200) {
-      const data = await res.json();
-      mailMessage = "sent";
-      console.log(data);
-    }
-      
+      if (res.status === 200) {
+        const data = await res.json();
+        mailMessage = "sent";
+        console.log(data);
+      }
     } catch (error) {
       mailMessage = "something went wrong";
     }
 
     setInterval(() => {
       mailMessage = "";
-    }, 2000)
+    }, 2000);
   }
 </script>
 
@@ -156,6 +159,14 @@
                 class="p-4 w-full rounded-md shadow-md"
                 placeholder="to: (enter your contacts email)"
                 bind:value={mail.to} />
+            </div>
+            <div class="mt-4">
+              <label for="">let your friends know who is contacting them</label>
+              <input
+                type="text"
+                class="mt-2 p-4 w-full rounded-md shadow-md"
+                placeholder="from: (sender name)"
+                bind:value={mail.from} />
             </div>
             <div class="mt-4">
               <textarea

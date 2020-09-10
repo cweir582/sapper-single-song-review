@@ -13,7 +13,8 @@
 
   let mail = {
     to: "",
-    message: ""
+    message: "",
+    from: ""
   };
 
     let mailMessage = "";
@@ -44,6 +45,7 @@
 
  async function sendMailToContact() {
     try {
+    mail.message += " " + artist.referred;
     mailMessage = "sending...";
     const res = await fetch("https://single-song-review.herokuapp.com/artists/sendrefmail", {
       method: "POST",
@@ -120,6 +122,14 @@
               class="p-4 w-full rounded-md shadow-md"
               placeholder="to: (enter your contacts email)"
               bind:value={mail.to} />
+          </div>
+          <div class="mt-4">
+            <label for="">let your friends know who is contacting them</label>
+            <input
+              type="text"
+              class="mt-2 p-4 w-full rounded-md shadow-md"
+              placeholder="from: (sender name)"
+              bind:value={mail.from} />
           </div>
           <div class="mt-4">
             <textarea

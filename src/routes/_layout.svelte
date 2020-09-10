@@ -10,6 +10,8 @@
 
   export let segment;
 
+  const showArchive = ["archive", "referral", "milestone", "subscriber"];
+
   onMount(() => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     CartStore.set(cart);
@@ -67,6 +69,12 @@
         font-semibold">
         <a href="/privacy-policy">privacy policy</a>
       </nav>
+      {#if showArchive.includes(segment)}
+        <nav class="p-4 bg-pink-200 text-gray-700 rounded-lg ml-4 shadow-md
+        font-semibold">
+          <a href="/archive">archive</a>
+        </nav>
+      {/if}
     </div>
   {:else}
     <div
