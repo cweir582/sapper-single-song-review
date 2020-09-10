@@ -54,7 +54,7 @@
 
           const data = await res.json();
 
-          if(data.data.success) {
+          if(data.data.score >= 0.5) {
             await addToEmailList();
           }
         });
