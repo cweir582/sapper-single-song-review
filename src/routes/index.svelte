@@ -1,6 +1,9 @@
 <script>
   import { goto, stores } from "@sapper/app";
   import { onMount } from "svelte";
+  import * as firebase from "firebase/app";
+  import "firebase/auth";
+
   const { preloading, page, session } = stores();
 
     const { host, path, params, query } = $page;
@@ -32,6 +35,50 @@
 
   async function turnButtonGreen() {
     green = this.value.length > 0;
+  }
+
+  async function signInWithFacebook() {
+    var provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(async function(result) {
+  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+      var user = result.user;
+      email = result.user.email;
+      await addToEmailList();
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+  }
+
+  async function signInWithGoogle() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider).then(async function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      email = result.user.email;
+      await addToEmailList();
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      console.log(error);
+    });
   }
 
 </script>
@@ -88,12 +135,12 @@
     font-semibold">
     <button
       href="/"
-      class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2">
+      class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2" on:click={signInWithFacebook}>
       subscribe with facebook
     </button>
     <button
       href="/"
-      class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2 mt-4 md:mt-0">
+      class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2 mt-4 md:mt-0" on:click={signInWithGoogle}>
       subscribe with google
     </button>
   </div>
