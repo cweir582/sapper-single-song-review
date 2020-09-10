@@ -55,7 +55,7 @@
 
   async function sendMailToContact() {
     try {
-      mail.message += " " + `https://asinglesongreview.com?ref=${user.referral}`;
+      mail.message += " " + `<a href='https://asinglesongreview.com?ref=${user.referral}'>Click here</a>`;
       mailMessage = "sending...";
       const res = await fetch(
         "https://single-song-review.herokuapp.com/artists/sendrefmail",
