@@ -54,7 +54,7 @@
 
           const data = await res.json();
 
-          if(data.data.succees) {
+          if(data.data.success) {
             await addToEmailList();
           }
         });
