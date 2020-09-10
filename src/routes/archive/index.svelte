@@ -35,9 +35,10 @@ all here: </h1>
   <div class="max-w-lg mx-auto">
     {#if reviews.length > 0}
       {#each reviews as review}
-          <div class="shadow-md bg-white rounded-md text-center p-2 text-xl font-semibold mt-4">
-              <a class="no-underline hover:underline" href="/archive/{review.id}">
-                {review.introduction}
+          <div class="shadow-md flex items-center bg-white rounded-md text-center p-2 text-xl font-semibold mt-4">
+          <img class="w-8 rounded-md" src="{review.press_photo.formats.thumbnail.url}" alt="{review.song_name}">
+              <a class="ml-4 no-underline hover:underline" href="/archive/{review.id}">
+                {review.song_name} - {review.artist_name}
               </a>
             </div>
 

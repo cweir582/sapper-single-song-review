@@ -11,28 +11,40 @@
     user,
     nextTarget;
 
+  let mail = {
+    to: "",
+    message: ""
+  };
+
+  let mailMessage = "";
+  $: mMessage = mailMessage;
+
   const getData = async url => {
     const res = await fetch(url);
 
     return await res.json();
   };
 
-        function handleSelect() {
+  function handleSelect() {
     const LINK_INPUT = "referral-link";
     const el = this.id === LINK_INPUT ? this : this.previousElementSibling;
-    
+
     el.select();
     document.execCommand("copy");
 
     const btn = el.id !== LINK_INPUT ? el : el.nextElementSibling;
-    btn.innerText = 'copied!'
+    btn.innerText = "copied!";
   }
 
   onMount(async () => {
     try {
-      mileStones = await getData("https://single-song-review.herokuapp.com/milestones");
+      mileStones = await getData(
+        "https://single-song-review.herokuapp.com/milestones"
+      );
 
-      user = await getData("https://single-song-review.herokuapp.com/artists/referral/" + slug);
+      user = await getData(
+        "https://single-song-review.herokuapp.com/artists/referral/" + slug
+      );
 
       nextTarget = mileStones.filter(
         item => user.referred < item.min_referral
@@ -40,6 +52,29 @@
       console.log(nextTarget);
     } catch (error) {}
   });
+
+  async function sendMailToContact() {
+    try {
+    mailMessage = "sending...";
+    const res = await fetch("https://single-song-review.herokuapp.com/artists/sendrefmail", {
+      method: "POST",
+      body: JSON.stringify(mail)
+    });
+
+    if (res.status === 200) {
+      const data = await res.json();
+      mailMessage = "sent";
+      console.log(data);
+    }
+      
+    } catch (error) {
+      mailMessage = "something went wrong";
+    }
+
+    setInterval(() => {
+      mailMessage = "";
+    }, 2000)
+  }
 </script>
 
 <div
@@ -94,10 +129,12 @@
           id="referral-link"
           type="text"
           class="bg-white shadow-md w-9/12 p-4 rounded-md border cursor-pointer"
-          value="https://asinglesongreview.com/{user.referral}" on:click={handleSelect}/>
+          value="https://asinglesongreview.com?ref={user.referral}"
+          on:click={handleSelect} />
         <button
           class="bg-green-400 shadow-md text-black text-sm px-4 py-4 ml-4
-          rounded-md flex items-center" on:click={handleSelect}>
+          rounded-md flex items-center"
+          on:click={handleSelect}>
           copy
         </button>
       </div>
@@ -112,18 +149,21 @@
       </div>
       <div class="flex flex-col md:flex-row mt-8">
         <div class="w-full md:w-7/12">
-          <form action="">
+          <form action="" on:submit|preventDefault={sendMailToContact}>
             <div class="">
               <input
                 type="text"
                 class="p-4 w-full rounded-md shadow-md"
-                placeholder="to: (enter your contacts email)" />
+                placeholder="to: (enter your contacts email)"
+                bind:value={mail.to} />
             </div>
             <div class="mt-4">
               <textarea
                 class="p-4 h-56 resize-y w-full rounded-md shadow-md"
-                placeholder="lorem ipsum" />
+                placeholder="lorem ipsum"
+                bind:value={mail.message} />
             </div>
+            <div class="">{mMessage}</div>
             <div class="mt-4">
               <input
                 type="submit"
@@ -134,9 +174,6 @@
           </form>
         </div>
         <div class="w-full md:w-5/12 mt-4 md:mt-0 md:ml-4">
-          <button class="px-4 py-2 text-xl bg-green-400 shadow-md rounded-md">
-            add from contacts
-          </button>
           <div class="mt-4 text-2xl">feel free to customise your message</div>
         </div>
       </div>
@@ -146,17 +183,28 @@
           <div
             class="w-20 h-20 flex justify-center items-center bg-blue-700
             rounded-md text-3xl shadow-md mr-4">
-            f
+            <a
+              href="https://www.facebook.com/sharer/sharer.php?u=https://asinglesongreview.com?ref={user.referral}"
+              target="_blank">
+              f
+            </a>
           </div>
           <div
             class="w-20 h-20 flex justify-center items-center bg-blue-400
             rounded-md text-3xl shadow-md mr-4">
-            t
+            <a
+              href="https://twitter.com/intent/tweet?url=https://asinglesongreview.com?ref={user.referral}&text={'Subscribe to asinglesongreview'}"
+              target="_blank">
+              t
+            </a>
           </div>
           <div
             class="w-20 h-20 flex justify-center items-center bg-blue-600
             rounded-md text-3xl shadow-md mr-4">
-            l
+            <a
+              href="https://www.linkedin.com/shareArticle?mini=true&url=https://asinglesongreview.com?ref={user.referral}&title={'asinglesongreview.com'}&source=https://asinglesongreview.com?ref={user.referral}">
+              l
+            </a>
           </div>
         </div>
       </div>

@@ -117,7 +117,7 @@
         <img class="mx-auto w-20 sm:w-26" src="./logo.png" alt="" />
       </span>
       <span class="font-bold text-xl sm:text-xl md:text-2xl">
-        UNSUBSCRIBE FROM HELLREVIEW
+        ENTER YOUR EMAIL ADDRESS TO UNSUBSCRIBE FROM THE HELL REVIEW, WE'LL CANCEL YOUR PAYMENT SUBSCRIPTION AT THE END OF THE MONTH
       </span>
       <div class="flex mt-8 w-full">
         <input
