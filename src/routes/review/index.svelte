@@ -113,6 +113,7 @@
     if(res.status === 200) {
       song = await res.json();
       form.song = song.id;
+      console.log(song);
     }
 
     this.style.display = "none";
@@ -152,7 +153,7 @@
       <img
         class="h-full sm:w-1/3 object-fit rounded-lg rounded-r-none pb-5/6
         hidden sm:block"
-        src="{song.press_photo.formats.thumbnail.url}"
+        src="{song.press_photo.formats.thumbnail.url || 'https://dummyimage.com/600x400/000/fff'}"
         alt="bag" />
       <div
         class="text-left flex flex-col justify-around w-full sm:w-2/3 px-4 py-4
