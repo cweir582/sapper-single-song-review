@@ -19,7 +19,7 @@
   }
 
   async function proceedToStripe() {
-      var stripe = Stripe('pk_test_51HQ805IWmOpG1DOUjKqdiDIrPxNbnxiaKcXxn7tZd0k8C1fRWp8xa9T5Kw0DIhenHMYRHErRop6KG75QzDkC5Et100OnnNkf2O');
+      var stripe = Stripe('pk_live_51HQ805IWmOpG1DOULwhs67fKdhS238Gqm7CudztpqaqnKPOm2wSSRHzDIFLP15JCEPob6bpPSSJpnF34gx79XSGX00GYdHNRj4');
 
     const res = await fetch('https://single-song-review.herokuapp.com/orders/', {
       method: 'POST',

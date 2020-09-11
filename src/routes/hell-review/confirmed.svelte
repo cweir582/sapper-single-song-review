@@ -49,14 +49,16 @@
 
   async function redirectToStripe() {
     const stripe = await loadStripe(
-      "pk_test_51HQ805IWmOpG1DOUjKqdiDIrPxNbnxiaKcXxn7tZd0k8C1fRWp8xa9T5Kw0DIhenHMYRHErRop6KG75QzDkC5Et100OnnNkf2O"
+      "pk_live_51HQ805IWmOpG1DOULwhs67fKdhS238Gqm7CudztpqaqnKPOm2wSSRHzDIFLP15JCEPob6bpPSSJpnF34gx79XSGX00GYdHNRj4"
     );
-    const res = await fetch("https://single-song-review.herokuapp.com/products/hrsubscribe", {
+    const res = await fetch("http://127.0.0.1:1337/products/hrsubscribe", {
       method: "POST",
       body: JSON.stringify({ token: query["token"] })
     });
 
+
     const session = await res.json();
+    console.log(session);
 
 
    return stripe.redirectToCheckout({ sessionId: session.id });
