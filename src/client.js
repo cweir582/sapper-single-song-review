@@ -1,20 +1,22 @@
 import * as sapper from '@sapper/app';
-import * as firebase from "firebase/app";
+import * as firebase from 'firebase/app';
 
-import "firebase/auth";
+import 'firebase/auth';
 
-  var firebaseConfig = {
-    apiKey: "AIzaSyB2FkBHlPKY47Vr_G7_NZnuZI8OE695lLI",
-    authDomain: "test-ssr-40e59.firebaseapp.com",
-    databaseURL: "https://test-ssr-40e59.firebaseio.com",
-    projectId: "test-ssr-40e59",
-    storageBucket: "test-ssr-40e59.appspot.com",
-    messagingSenderId: "906090878464",
-    appId: "1:906090878464:web:d88e41e5d91e133d902ae5"
-  };
+var firebaseConfig = {
+	apiKey: 'AIzaSyAj_zz7fn4Djc5ka3UfgvXMO6f23Acmdyc',
+	authDomain: 'a-single-song-review.firebaseapp.com',
+	databaseURL: 'https://a-single-song-review.firebaseio.com',
+	projectld: 'a-single-song-review',
+	storageBucket: 'a-single-song-review.appspot.com',
+	messagingSenderld: '199855635504',
+	appld: '1:199855635504:web:bc229b8f973ed8722741f5',
+	measurementld: 'G-VBX61TZGCX',
+};
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 sapper.start({
-	target: document.querySelector('#sapper')
+	target: document.querySelector('#sapper'),
 });
