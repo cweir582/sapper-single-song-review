@@ -115,6 +115,8 @@
       form.song = song.id;
     }
 
+    this.style.display = "none";
+
     // console.log();
   }
 </script>

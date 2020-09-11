@@ -33,6 +33,14 @@
     animation: gradient 10s ease infinite;
   }
 
+    :global(.red) {
+    background-color: #FF0606;
+  }
+
+  :global(.white-shadow) {
+    box-shadow: 0 .4rem 1rem rgba(255, 255, 255, 0.7);
+  }
+
   @keyframes gradient {
     0% {
       background-position: 0% 50%;
