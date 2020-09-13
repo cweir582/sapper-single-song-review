@@ -43,7 +43,7 @@
       );
 
       user = await getData(
-        "https://single-song-review.herokuapp.com/artists/referral/" + slug
+        "https://single-song-review.herokuapp.com/subscriber/referral/" + slug
       );
 
       nextTarget = mileStones.filter(
