@@ -38,8 +38,6 @@
   
       const data = await res.json();
   
-      console.log(data);
-  
       if (res.status === 200) {
         state = "confirmed";
       }
@@ -51,7 +49,7 @@
     const stripe = await loadStripe(
       "pk_live_51HQ805IWmOpG1DOULwhs67fKdhS238Gqm7CudztpqaqnKPOm2wSSRHzDIFLP15JCEPob6bpPSSJpnF34gx79XSGX00GYdHNRj4"
     );
-    const res = await fetch("http://127.0.0.1:1337/products/hrsubscribe", {
+    const res = await fetch("https://single-song-review.herokuapp.com/products/hrsubscribe", {
       method: "POST",
       body: JSON.stringify({ token: query["token"] })
     });

@@ -23,7 +23,7 @@
         body: JSON.stringify(form)
       }
     );
-
+    console.log("Here");
     const data = await res.json();
     // console.log(data);
     if (res.status === 200) {
