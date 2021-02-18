@@ -15,7 +15,6 @@
   onMount(async () => {
     review = await getReview();
     points = Object.keys(review.review);
-    console.log(review);
   });
 </script>
 
