@@ -22,15 +22,15 @@
 
 <style>
   :global(.green) {
-    background: linear-gradient(-45deg, #39df78, #f6f6f6);
-    background-size: 400% 1000%;
+    background: linear-gradient(-45deg, #39df78, #fab1c6);
+    background-size: 400% 500%;
     animation: gradient 8s ease infinite;
   }
 
   :global(.red-bg) {
     background: linear-gradient(-45deg, #eb8989, #000, #fff);
     background-size: 400% 1000%;
-    animation: gradient 10s ease infinite;
+    animation: gradient 7s ease infinite;
   }
 
     :global(.red) {
