@@ -149,7 +149,11 @@
   {:else}
     <div class="flex justify-center items-center">
       <span class="mr-6">
+        {#if selectedCategory === 'hellreview'}
+        <img class="mx-auto h-48 sm:h-64" src="./Devil Boi.png" alt="" />
+        {:else}
         <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="" />
+        {/if}
       </span>
       <span class="font-semibold text-2xl sm:text-4xl md:text-5xl">
         submit a song

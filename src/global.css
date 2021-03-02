@@ -7,3 +7,35 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+.green {
+	background: linear-gradient(-45deg, rgba(57, 223, 120, 1), rgb(250, 178, 199, 1));
+	background-size: 200% 300%;
+	animation: gradient 3s ease infinite;
+}
+
+.red-bg {
+	background: linear-gradient(-45deg, #eb8989, #000, #fff);
+	background-size: 400% 1000%;
+	animation: gradient 7s ease infinite;
+}
+
+.red {
+	background-color: #ff0606;
+}
+
+.white-shadow {
+	box-shadow: 0 0.4rem 1rem rgba(255, 255, 255, 0.7);
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

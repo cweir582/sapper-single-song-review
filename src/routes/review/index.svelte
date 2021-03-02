@@ -96,9 +96,9 @@
       );
 
       const data = await res.json();
-      console.log(data);
+
     } catch (error) {
-      console.log(error);
+      
     }
   }
 
@@ -218,6 +218,9 @@
           class="bg-green-400 hover:bg-green-500 text-2xl cursor-pointer rounded
           shadow-md p-3 px-7"
           value="Submit Review" />
+
+          <button class="bg-green-400 hover:bg-green-500 text-2xl cursor-pointer rounded
+          shadow-md p-3 px-7">Save Review</button>
       </div>
     </div>
   </form>
