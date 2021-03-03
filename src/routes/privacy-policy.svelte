@@ -3,7 +3,9 @@
   bg-pink-200 rounded py-12 lowercase shadow-md">
   <div class="flex justify-center items-center mx-auto max-w-lg">
     <span class="mr-6">
-      <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="" />
+      <a href="/" class="inline-block">
+        <img class="mx-auto w-20 sm:w-26" src="./logo.png" alt="" />
+      </a>
     </span>
     <span class="font-semibold text-2xl sm:text-4xl md:text-5xl">
       privacy policy
