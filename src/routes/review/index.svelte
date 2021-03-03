@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { goto } from "@sapper/app";
+import Modal from "../../components/Modal.svelte";
 
   const inputArr = [
     {
@@ -52,7 +53,7 @@
     song: {},
     category: "songreview"
   };
-  let userData, song = null;
+  let userData, song = null, showModal = false;
   $: pickedSong = song;
 
   onMount(async () => {
@@ -225,3 +226,5 @@
     </div>
   </form>
 </div>
+
+<Modal message="Review is submitted successfully!" bind:show={showModal}/>

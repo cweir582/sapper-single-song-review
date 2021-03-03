@@ -16,6 +16,7 @@
 
 	onMount(async () => {
 		reviews = await getReviews();
+		localStorage.setItem("reviews", JSON.stringify(reviews));
 	});
 </script>
 

@@ -1,6 +1,7 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { goto } from "@sapper/app";
+import Modal from "../../components/Modal.svelte";
 
   const inputArr = [
     {
@@ -22,7 +23,8 @@
   ];
 
   let submittedto = "",
-    state = "normal";
+    state = "normal",
+    showModal = false;
   $: selectedCategory = submittedto;
   $: currentState = state;
 
@@ -110,7 +112,7 @@
       state = "normal";
 
       if (!song.artistId.confirm) {
-        await goto("submit-song/confirmation");
+        showModal = true;
       } else {
         await goto("/referral/" + song.artistId.referral);
       }
@@ -239,3 +241,5 @@
     </form>
   {/if}
 </div>
+
+<Modal message="successfully submitted song! Please confirm your email." bind:show={showModal}/>

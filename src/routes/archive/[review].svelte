@@ -4,7 +4,7 @@
   const { preloading, page, session } = stores();
   const { host, path, params, query } = $page;
 
-  let review, points;
+  let review, points, reviews, currentReviewIndex;
 
   const getReview = async () => {
     const res = await fetch("https://single-song-review.herokuapp.com/reviews/" + params.review);
@@ -15,6 +15,8 @@
   onMount(async () => {
     review = await getReview();
     points = Object.keys(review.review);
+    reviews = JSON.parse(localStorage.getItem("reviews"));
+    currentReviewIndex = reviews.findIndex(el => el.id === review.id);
   });
 </script>
 
@@ -44,7 +46,10 @@
         <p class="text-xl mt-4">this review was written by → {review.reviewer} </p>
       </div>
 
-
+      <div class="m-8 flex justify-between">
+        <!-- <a href="/archive/{reviews[Math.max(0, currentReviewIndex - 1)].id}" class="px-8 py-4 block bg-white rounded-lg shadow-md text-2xl">Previous</a>
+        <a href="/archive/{reviews[Math.max(reviews.length - 1, currentReviewIndex + 1)].id}" class="px-8 py-4 block bg-white rounded-lg shadow-md text-2xl">Next</a> -->
+      </div>
   {/if}
 
 </div>
