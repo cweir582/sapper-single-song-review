@@ -14,13 +14,18 @@
 		return body;
 	};
 
+	page.subscribe(async (data) => {
+		await fetchReview()
+	})
+
+
+
 	async function fetchReview() {
 		review = undefined;
 		const data = await getReview();
 		previous = data.previous;
 		next = data.next;
 		review = data.current;
-		console.log(review);
 		points = Object.keys(review.review || {});
 	}
 
@@ -69,17 +74,21 @@
 		</div>
 
 		<div class="m-8 flex justify-between">
+			{#if previous}
 			<a
 				href="/archive/{previous}"
-				on:click={async () => await fetchReview()}
 				class="px-8 py-4 block bg-white rounded-lg shadow-md text-2xl"
 				>Previous</a
 			>
+
+			{/if}
+
+			{#if next}
 			<a
 				href="/archive/{next}"
-				on:click={async () => await fetchReview()}
 				class="px-8 py-4 block bg-white rounded-lg shadow-md text-2xl">Next</a
 			>
+			{/if}
 		</div>
 	{/if}
 </div>
