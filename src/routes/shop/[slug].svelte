@@ -19,16 +19,16 @@
       cartPrice = value.reduce((acc, item) => {
         return acc + item.price
       }, 0)
-  
+      console.log("unsubscribe, cart=",value)
      localStorage.setItem('cart', JSON.stringify(value))
     }
-
   });
 
 
   onDestroy(unsubscribe);
 
   onMount(async () => {
+    //localStorage.removeItem('cart')
     const res = await fetch("https://single-song-review.herokuapp.com/products/" + slug);
 
     const data = await res.json();
@@ -42,6 +42,40 @@
         return [product]
       });
   }
+  function removeFromCart() {
+    /*CartStore.update(item => {
+      if(cartItem){
+        cartItem--;
+        if(item)
+          item.pop()
+      }
+      console.log("item = ",item  );
+      return item
+    });*/
+    CartStore.update(item => {
+      console.log("update, item=",item)
+      if(item){
+        let index = -1;
+        for(let i = 0;i<item.length;i++){
+          if(item[i]._id == product._id)
+          {
+            index = i;
+            break;
+          }
+        }
+        console.log(index)
+        if(index != -1){
+          item.splice(index, 1);
+          if(item.length == 0){
+            cartItem = 0;
+            cartPrice = 0;
+            localStorage.setItem('cart',JSON.stringify([]));
+          }
+        }
+      }
+      return item
+    })
+  }
 </script>
 
 <div
@@ -49,7 +83,7 @@
   bg-pink-200 rounded py-12 lowercase shadow-md">
   <div class="flex justify-start items-center mx-auto max-w-lg">
     <span class="mr-6">
-      <img class="mx-auto w-20" src="./logo.png" alt="" />
+      <img class="mx-auto w-20" src="./profile.svg" alt="" />
     </span>
     <span class="font-bold text-2xl sm:text-4xl md:text-5xl">Shop</span>
   </div>
@@ -59,7 +93,7 @@
       <div class="mt-4 mx-auto">
         <h1 class="font-bold text-3xl">{product.title}</h1>
         <div class="font-semibold text-2xl">
-          <span>Cart ({cartItem}x){cartPrice > 0 ? " - $" + cartPrice : ''}</span>
+          <span>Cart ({cartItem}x){cartPrice > 0 ? " - £" + cartPrice : ''}</span>
           <a href="/checkout" class="underline hover:no-underline">Checkout</a>
         </div>
       </div>
@@ -73,11 +107,16 @@
         <div class="mt-4 md:mt-0 md:w-2/3 flex flex-col justify-between text-xl">
           <p>{product.description}</p>
           <div class="mt-2">
-            <span class="text-4xl font-semibold">${product.price}</span>
+            <span class="text-4xl font-semibold">£{product.price}</span>
             <button
-              class="bg-green-400 hover:bg-green-500 shadow-md rounded-md px-4
-              py-2 ml-4" on:click={addToCart}>
+              class="bg-green-400 hover:bg-green-500 shadow-md rounded-md px-3
+              py-2 ml-2" on:click={addToCart}>
               add to cart
+            </button>
+            <button
+              class="bg-red-400 hover:bg-red-500 shadow-md rounded-md px-3
+              py-2 ml-2" on:click={removeFromCart}>
+              remove
             </button>
           </div>
         </div>

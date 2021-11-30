@@ -54,18 +54,21 @@
     return await fetch("https://single-song-review.herokuapp.com/auth/local/register", {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Accept:'application/json'
       },
       body: JSON.stringify(form)
     });
   }
 
-    async function login() {
+  async function login() {
     form.identifier = form.email;
+    console.log("login, form", form);
     return await fetch("https://single-song-review.herokuapp.com/auth/local", {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Accept:'application/json'
       },
       body: JSON.stringify(form)
     });
@@ -75,6 +78,7 @@
     try {
     const res = isLogginIn ? await login() : await register();
       const data = await res.json();
+      console.log("data = ",data);
 
       if(isLogginIn) {
         localStorage.setItem('user', JSON.stringify(data));
@@ -104,9 +108,9 @@
   <div class="max-w-lg xs:max-w-sm mx-4 xs:mx-auto p-6 rounded bg-pink-200">
       <div class="flex justify-center items-center">
         <span class="">
-          <img class="mx-auto w-20" src="./logo.png" alt="">
+          <img class="mx-auto w-20" src="./profile.svg" alt="">
+          <span class="font-semibold text-xl">A single song review</span>
         </span>
-        <span class="font-semibold text-xl">A single song review</span>
       </div>
 
       <form class="mt-8" on:submit|preventDefault={handleSubmit}>

@@ -49,7 +49,7 @@
     {#if resState === 'confirmed'}
   <div class="flex justify-center items-center">
     <span class="mr-6">
-      <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="" />
+      <img class="mx-auto w-20 sm:w-32" src="./profile.svg" alt="" />
     </span>
     <span class="font-semibold text-2xl sm:text-4xl md:text-5xl">
       You're all set

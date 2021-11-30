@@ -78,7 +78,7 @@
   {#if currState === 'ubsubscribed'}
     <div class="flex justify-start items-center mx-auto max-w-lg">
       <span class="mr-6">
-        <img class="mx-auto w-20 sm:w-26" src="./logo.png" alt="" />
+        <img class="mx-auto w-20 sm:w-26" src="./profile.svg" alt="" />
       </span>
       <span class="font-bold text-2xl sm:text-4xl md:text-4xl">
         UNSUBSCRIBED

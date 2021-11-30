@@ -1,9 +1,11 @@
 <script>
 	import { goto, stores } from '@sapper/app';
 	import { onMount } from 'svelte';
-	import * as firebase from 'firebase/app';
+	import firebase from 'firebase/app';
 	import 'firebase/auth';
+	import * as api from 'api.js';
 
+	
 	const { preloading, page, session } = stores();
 
 	const { host, path, params, query } = $page;
@@ -15,9 +17,23 @@
 	let loading = false;
 	$: changeToGreen = green;
 	///
+	let review = {press_photo:"", song_name:"", artist_name:""}
+
+	const getReview = async () => {
+		const {status, body} = await api.get("reviews/");
+		return body[0];
+	}
+
+	onMount(async () => {
+		review = await getReview();
+	});
+
 	async function addToEmailList() {
 		loading = true;
 		const ref = query['ref'];
+		console.log("addToEmailList");
+		console.log(email);
+		console.log(ref);
 		const res = await fetch(
 			'https://single-song-review.herokuapp.com/subscribers',
 			{
@@ -54,10 +70,9 @@
 							body: JSON.stringify(token),
 						}
 					);
-
 					const data = await res.json();
-
-					if (data.data.score >= 0.5) {
+					//if (data.data.score >= 0.5)
+					{
 						await addToEmailList();
 					}
 				});
@@ -115,6 +130,7 @@
 				console.log(error);
 			});
 	}
+	
 </script>
 
 {#if !loading}
@@ -125,7 +141,7 @@
 		<div class="flex justify-center items-center mx-auto max-w-lg">
 			<span class="mr-6">
 				<a href="/" class="inline-block">
-					<img class="mx-auto w-20 sm:w-26" src="./logo.png" alt="" />
+					<img class="mx-auto w-20 sm:w-26" src="./profile.svg" alt="" />
 				</a>
 			</span>
 			<span class="font-bold text-2xl sm:text-4xl md:text-4xl">
@@ -146,7 +162,7 @@
 				<input
 					type="email"
 					class="p-2 rounded-md border-4 border-white flex-auto bg-transparent
-          outline-none focus:border-green-400"
+          outline-none focus:bg-white focus:border-green-400"
 					placeholder="email"
 					bind:value={email}
 					on:input={turnButtonGreen}
@@ -198,10 +214,34 @@
 
 		>
 		subscribe to enter
-	</button>
-			<!--  -->
+		</button>
+	<!-- Latest Review Start -->
+	<h3>latest review: </h3>
+		<div
+			class="shadow-md flex items-center bg-white rounded-md text-center p-4 text-xl font-semibold mt-4"
+		>
+			{#if review.press_photo}
+				<img
+					class="w-10 rounded-md"
+					src={review.press_photo.formats.thumbnail.url}
+					alt={review.song_name}
+				/>
+			{:else}
+				<img
+					class="w-10 rounded-md"
+					src="https://dummyimage.com/600x400/000/fff"
+					alt={review.song_name}
+				/>
+			{/if}
+			<p class="ml-2">{review.song_name} - {review.artist_name}</p>
+		</div>
+		<p class="text-xl">
+			<a href="/archive/{review.id}">subscribe to read</a>
+		</p>
+	<!-- Latest Review E N D-->
 		</div>
 	</div>
+	
 {:else}
 	<div
 		class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12

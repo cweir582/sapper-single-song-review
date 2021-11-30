@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import * as firebase from "firebase/app";
+  import firebase from "firebase/app";
   import "firebase/auth";
 
   let state = "normal";
@@ -136,7 +136,7 @@
   py-12 uppercase shadow-md text-white white-shadow">
   <div class="flex justify-center items-center mx-auto max-w-lg">
     <span class="mr-6">
-      <img class="mx-auto w-20 sm:w-26" src="./logo.png" alt="" />
+      <img class="mx-auto w-20 sm:w-26" src="./profile.svg" alt="" />
     </span>
     <span class="font-bold text-2xl sm:text-4xl md:text-4xl">
       The Hell Review
@@ -183,12 +183,12 @@
         </button>
       </div>
     </div>
-    <div class="font-bold text-center mt-4">
+    <div class="font-bold text-center mt-4 hidden">
       <h1>OR</h1>
     </div>
     <div
       class="mt-4 max-w-lg mx-auto flex flex-col md:flex-row justify-between
-      text-lg text-gray-600 font-semibold uppercase">
+      text-lg text-gray-600 font-semibold uppercase hidden">
       <button
         href="/"
         class="bg-white hover:bg-gray-200 shadow-md rounded-md px-4 py-2

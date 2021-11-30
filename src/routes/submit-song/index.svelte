@@ -155,7 +155,7 @@ import Modal from "../../components/Modal.svelte";
           {#if selectedCategory === 'hellreview'}
           <img class="mx-auto h-48 sm:h-64" src="./Devil Boi.png" alt="" />
           {:else}
-          <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="" />
+          <img class="mx-auto w-20 sm:w-32" src="./profile.svg" alt="" />
           {/if}
         </a>
       </span>

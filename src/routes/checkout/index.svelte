@@ -37,23 +37,73 @@
     }
   }
 
+  function removeFromCart(product) {
+    let itemCount = -1;
+    CartStore.update(item => {
+      if(item){
+        let index = -1;
+        for(let i = 0;i<item.length;i++){
+          if(item[i]._id == product._id)
+          {
+            index = i;
+            break;
+          }
+        }
+        console.log(item)
+        if(index != -1){
+          item.splice(index, 1);
+          if(item.length == 0){
+            localStorage.setItem('cart',JSON.stringify([]));
+            cartPrice = 0;
+            cartItem = 0;
+            itemCount = 0;
+          }
+        }
+      }
+      return item
+    })
+    if(itemCount == 0){
+      return goto("/shop");
+    }
+  }
 
+  const unsubscribe = CartStore.subscribe(value => {
+    if(value && value.length) {
+      counts = {};
+      value.forEach(function(x) {
+        counts[JSON.stringify(x)] = (counts[JSON.stringify(x)] || 0) + 1;
+      });
+      products = Object.keys(counts).map(item => JSON.parse(item));  
+      cartItem = value.length;
+      cartPrice = value.reduce((acc, item) => {
+        return acc + item.price
+      }, 0)
+      localStorage.setItem('cart', JSON.stringify(value))
+      form.cart = counts;
+    }
+  });
+
+
+  onDestroy(unsubscribe);
 
   onMount(async () => {
-    products = JSON.parse(localStorage.getItem("cart"));
-
-    if(!products) return await goto('/shop');
-
+    let prod = JSON.parse(localStorage.getItem("cart"));
+    if(prod.length == 0)
+      return await goto('/shop')
+/*    products = JSON.parse(localStorage.getItem("cart"));
+    console.log("onMount():products = ", products)
+    if(!products || !products.length) return await goto('/shop');
     products.forEach(function(x) {
       counts[JSON.stringify(x)] = (counts[JSON.stringify(x)] || 0) + 1;
     });
     products = Object.keys(counts).map(item => JSON.parse(item));
-
+*/
+/*
     cartPrice = products.reduce((acc, item) => {
       return acc + (item.price * counts[JSON.stringify(item)] );
     }, 0);
 
-    form.cart = counts;
+    form.cart = counts;*/
   });
 </script>
 
@@ -62,7 +112,9 @@
   bg-pink-200 rounded py-12 lowercase shadow-md">
   <div class="flex justify-start items-center mx-auto max-w-lg">
     <span class="mr-6">
-      <img class="mx-auto w-20" src="./logo.png" alt="" />
+      <a href="/" class="inline-block">
+        <img class="mx-auto w-20" src="./profile.svg" alt="" />
+      </a>
     </span>
     <span class="font-bold text-2xl sm:text-3xl md:text-4xl">Checkout</span>
   </div>
@@ -103,7 +155,13 @@
             <div class="text-xl font-bold">${product.price}</div>
             &nbsp;
             <div class="text-xl">x{counts[JSON.stringify(product)]}</div>
+            <button
+              class="bg-red-400 hover:bg-red-500 shadow-md rounded-md px-3
+              py-1 ml-4" on:click={removeFromCart(product)}>
+              -
+            </button>
           </div>
+          
         </div>
       {/each}
     {:else}

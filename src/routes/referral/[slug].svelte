@@ -73,7 +73,7 @@
   bg-pink-200 rounded py-12 lowercase shadow-md">
   <div class="flex justify-center items-center max-w-lg mx-auto">
     <span class="mr-6">
-      <img class="mx-auto w-20 sm:w-32" src="./logo.png" alt="" />
+      <img class="mx-auto w-20 sm:w-32" src="./profile.svg" alt="" />
     </span>
     <span class="font-bold text-2xl sm:text-4xl md:text-5xl">
       refer fans -> get reviewed

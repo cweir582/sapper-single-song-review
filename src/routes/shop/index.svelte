@@ -46,7 +46,7 @@
   <div class="flex justify-start items-center mx-auto max-w-lg">
     <span class="mr-6">
       <a href="/" class="inline-block">
-        <img class="mx-auto w-20 sm:w-26" src="./logo.png" alt="" />
+        <img class="mx-auto w-20 sm:w-26" src="./profile.svg" alt="" />
       </a>
     </span>
     <span class="font-bold text-2xl sm:text-4xl md:text-5xl">Shop</span>
@@ -55,7 +55,7 @@
   <div class="mt-4 max-w-lg mx-auto">
     <h1 class="font-bold text-3xl">get merch look cool</h1>
     <div class="font-semibold text-2xl">
-          <span>Cart ({cartItem}x){cartPrice > 0 ? " - $" + cartPrice : ''}</span>
+          <span>Cart ({cartItem}x){cartPrice > 0 ? " - £" + cartPrice : ''}</span>
       <a href="/checkout" class="underline hover:no-underline">Checkout</a>
     </div>
   </div>

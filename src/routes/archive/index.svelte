@@ -24,7 +24,9 @@
 >
 	<div class="flex justify-start items-center mx-auto max-w-lg">
 		<span class="mr-6">
-			<img class="mx-auto w-20" src="./logo.png" alt="" />
+			<a href="/" class="inline-block">
+				<img class="mx-auto w-20" src="./profile.svg" alt="" />
+			</a>
 		</span>
 		<span class="font-bold text-2xl sm:text-4xl md:text-5xl">archive</span>
 	</div>
@@ -39,23 +41,23 @@
 		{#if reviews.length > 0}
 			{#each reviews as review}
 				<div
-					class="shadow-md flex items-center bg-white rounded-md text-center p-2 text-xl font-semibold mt-4"
+					class="shadow-md flex items-center bg-white rounded-md text-center p-4 text-xl font-semibold mt-4"
 				>
 					{#if review.press_photo}
 						<img
-							class="w-8 rounded-md"
+							class="w-10 rounded-md"
 							src={review.press_photo.formats.thumbnail.url}
 							alt={review.song_name}
 						/>
 					{:else}
 						<img
-							class="w-8 rounded-md"
+							class="w-10 rounded-md"
 							src="https://dummyimage.com/600x400/000/fff"
 							alt={review.song_name}
 						/>
 					{/if}
 					<a
-						class="ml-4 no-underline hover:underline"
+						class="ml-2 no-underline hover:underline"
 						href="/archive/{review.id}"
 					>
 						{review.song_name} - {review.artist_name}
