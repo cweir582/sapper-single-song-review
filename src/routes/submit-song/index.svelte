@@ -37,6 +37,10 @@
       contact_email: "",
       submittedto,
     },
+    song_name: "",
+    artist_name: "",
+    streaming_link: "",
+    contact_email: "",
     press_photo: "",
   };
   let userData;
@@ -62,9 +66,9 @@
 
   function checkIfDataIsOk() {
     isDataOk =
-      form.song_name?.length > 1 &&
-      form.artist_name?.length > 1 &&
-      form.streaming_link?.length > 1 &&
+      form.song_name.length > 1 &&
+      form.artist_name.length > 1 &&
+      form.streaming_link.length > 1 &&
       isEmail(form.contact_email) &&
       form.press_photo.length > 0;
   }
