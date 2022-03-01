@@ -184,13 +184,13 @@
           <img class="mx-auto w-20 sm:w-26" src="./profile.svg" alt="" />
         </a>
       </span>
-      <span class="font-semibold text-2xl sm:text-4xl md:text-5xl">
+      <span class="font-semibold text-2xl sm:text-4xl md:text-5xl bg-white">
         {input.title}
       </span>
     </div>
     {#each input.contents as content}
       <div class="mt-8 max-w-lg mx-auto">
-        <p class="text-2xl font-semibold sm:text-2xl md:text-3xl">{content.cTitle}</p>
+        <p class="text-2xl font-semibold sm:text-2xl md:text-3xl bg-white">{content.cTitle}</p>
         {#each content.cText.split("\n\r") as text}
           <p class="text-xl">{text}</p>
         {/each}

@@ -84,7 +84,7 @@
     <h1
       class="text-3xl font-semibold p-2 bg-white rounded-md shadow-md
       text-center max-w-md mx-auto">
-      You have {artist.referred || 'X'} referrals
+      You have {artist.referred || '0'} referrals
     </h1>
     <div class="text-2xl font-semibold mt-4">share your link</div>
     <div class="text-2xl mt-2">

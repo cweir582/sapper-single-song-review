@@ -8,10 +8,14 @@
 	box-sizing: border-box;
 }
 
-.green {
-	background: linear-gradient(-45deg, rgba(57, 223, 120, 1), rgb(250, 178, 199, 1));
-	background-size: 200% 300%;
-	animation: gradient 2s ease infinite;	
+.green {	
+	/* background: linear-gradient(-45deg, rgba(57, 223, 121, 1), #f2c0ef)); */
+
+	/* background-size: 200% 300%; */
+	/* animation: gradient 2s ease infinite;	 */
+	background: url("/noise4.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 ._noise {
 	position: fixed;

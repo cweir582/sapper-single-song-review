@@ -1,25 +1,26 @@
 <script>
+  import isEmail from "validator/lib/isEmail";
   import { onMount, onDestroy } from "svelte";
   import { goto } from "@sapper/app";
-import Modal from "../../components/Modal.svelte";
+  import Modal from "../../components/Modal.svelte";
 
   const inputArr = [
     {
       label: "artist",
-      bind: "artist_name"
+      bind: "artist_name",
     },
     {
       label: "song title",
-      bind: "song_name"
+      bind: "song_name",
     },
     {
       label: "streaming link",
-      bind: "streaming_link"
+      bind: "streaming_link",
     },
     {
       label: "contact email",
-      bind: "contact_email"
-    }
+      bind: "contact_email",
+    },
   ];
 
   let submittedto = "",
@@ -34,11 +35,12 @@ import Modal from "../../components/Modal.svelte";
       artist_name: "",
       streaming_link: "",
       contact_email: "",
-      submittedto: submittedto
+      submittedto,
     },
-    press_photo: ""
+    press_photo: "",
   };
   let userData;
+  let isDataOk = false;
 
   $: if (selectedCategory) {
     if (submittedto === "hellreview") {
@@ -58,8 +60,20 @@ import Modal from "../../components/Modal.svelte";
     } catch (error) {}
   });
 
+  function checkIfDataIsOk() {
+    isDataOk =
+      form.song_name?.length > 1 &&
+      form.artist_name?.length > 1 &&
+      form.streaming_link?.length > 1 &&
+      isEmail(form.contact_email) &&
+      form.press_photo.length > 0;
+  }
+
   function handleInput() {
-    form[this.dataset.forminput] = this.value;
+    if (this.dataset.forminput) form[this.dataset.forminput] = this.value;
+    console.log(isDataOk, this.dataset.forminput, form);
+    checkIfDataIsOk();
+    setTimeout(checkIfDataIsOk, 300);
   }
 
   async function handleSubmit() {
@@ -72,7 +86,7 @@ import Modal from "../../components/Modal.svelte";
       const formElements = this.elements;
 
       const data = {
-        submittedto: submittedto
+        submittedto: submittedto,
       };
 
       for (let i = 0; i < formElements.length; i++) {
@@ -103,7 +117,7 @@ import Modal from "../../components/Modal.svelte";
         "https://single-song-review.herokuapp.com/songs",
         {
           method: "POST",
-          body: formData
+          body: formData,
         }
       );
 
@@ -120,42 +134,26 @@ import Modal from "../../components/Modal.svelte";
   }
 </script>
 
-<style>
-  .loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #68d391;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 2s linear infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-</style>
-
 <svelte:head>
   <title>Submit Song</title>
 </svelte:head>
 
 <div
-  class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12 py-12 {selectedCategory === 'hellreview' ? 'red uppercase text-white white-shadow' : 'bg-pink-200 rounded lowercase shadow-md'}">
-  {#if currentState === 'loading'}
+  class="mx-4 px-6 md:px-0 md:w-9/12 lg:w-7/12 xl:w-6/12 md:mx-auto my-12 py-12 {selectedCategory ===
+  'hellreview'
+    ? 'red uppercase text-white white-shadow'
+    : 'bg-pink-200 rounded lowercase shadow-md'}"
+>
+  {#if currentState === "loading"}
     <div class="loader w-full mx-auto" />
   {:else}
     <div class="flex justify-center items-center">
       <span class="mr-6">
         <a href="/" class="inline-block">
-          {#if selectedCategory === 'hellreview'}
-          <img class="mx-auto h-48 sm:h-64" src="./Devil Boi.png" alt="" />
+          {#if selectedCategory === "hellreview"}
+            <img class="mx-auto h-48 sm:h-64" src="./Devil Boi.png" alt="" />
           {:else}
-          <img class="mx-auto w-20 sm:w-32" src="./profile.svg" alt="" />
+            <img class="mx-auto w-20 sm:w-32" src="./profile.svg" alt="" />
           {/if}
         </a>
       </span>
@@ -189,17 +187,20 @@ import Modal from "../../components/Modal.svelte";
     <form
       class="mt-8 max-w-lg mx-auto"
       enctype="multipart/form-data"
-      on:submit|preventDefault={handleSubmit}>
+      on:submit|preventDefault={handleSubmit}
+    >
       <div class="flex justify-between">
         <button
           class="border-2 border-white p-4 w-1/2 bg-pink-300 font-semibold
           rounded-lg"
-          on:click|preventDefault={() => (submittedto = 'songreview')}>
+          on:click|preventDefault={() => (submittedto = "songreview")}
+        >
           a single song review
         </button>
         <button
           class="border-2 border-black p-4 w-1/2 ml-4 red font-semibold"
-          on:click|preventDefault={() => (submittedto = 'hellreview')}>
+          on:click|preventDefault={() => (submittedto = "hellreview")}
+        >
           THE HELL REVIEW
         </button>
       </div>
@@ -216,7 +217,8 @@ import Modal from "../../components/Modal.svelte";
               name={input.bind}
               placeholder={input.label}
               data-forminput={input.bind}
-              on:input={handleInput} />
+              on:input={handleInput}
+            />
           </div>
         {/each}
         <div class="pt-6">
@@ -230,18 +232,47 @@ import Modal from "../../components/Modal.svelte";
             focus:placeholder-gray-500 focus:bg-white focus:border-green-400
             focus:outline-none mt-2"
             name="press_photo"
-            bind:value={form.press_photo} />
+            on:input={handleInput}
+            bind:value={form.press_photo}
+          />
         </div>
         <div class="pt-10 pb-5 text-center">
           <input
             type="submit"
-            class="bg-white hover:bg-gray-100 w-full text-2xl text-gray-700
+            class="{isDataOk
+              ? 'bg-green-400'
+              : 'bg-white'} hover:bg-gray-100 w-full text-2xl text-gray-700
             cursor-pointer rounded p-3 px-7"
-            value="submit song" />
+            :disabled={!isDataOk}
+            value="submit song"
+          />
         </div>
       </div>
     </form>
   {/if}
 </div>
 
-<Modal message="successfully submitted song! Please confirm your email." bind:show={showModal}/>
+<Modal
+  message="successfully submitted song! Please confirm your email."
+  bind:show={showModal}
+/>
+
+<style>
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #68d391;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
