@@ -242,7 +242,7 @@
         <div class="flex mx-auto w-full max-w-lg shadow-md my-8">
           <img
             class="w-1/3 rounded-l-md"
-            src={vinyl.image?.url}
+            src={vinyl.image ? vinyl.image.url : "https://dummyimage.com/600x400/000/fff"}
             alt=""
           />
           <div
