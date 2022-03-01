@@ -242,7 +242,7 @@
         <div class="flex mx-auto w-full max-w-lg shadow-md my-8">
           <img
             class="w-1/3 rounded-l-md"
-            src={"https://single-song-review.herokuapp.com" + vinyl.image?.url}
+            src={vinyl.image?.url}
             alt=""
           />
           <div
