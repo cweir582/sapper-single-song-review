@@ -34,7 +34,7 @@
   });
 
   async function getVinyl() {
-    const data = await fetch("http://127.0.0.1:1337/monthly-vinyl-draw");
+    const data = await fetch("https://single-song-review.herokuapp.com/monthly-vinyl-draw");
     return data.json();
   }
 
